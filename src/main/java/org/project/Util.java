@@ -1,24 +1,16 @@
 package org.project;
 
 import java.io.*;
+import java.sql.*;
 
 public class Util {
-    private static final String fromNameFileURL = "fromNameFile.txt";
-    private static final String toNameFileURL = "toNameFile.txt";
-    private static final BufferedReader reader;
-    private static final  BufferedWriter writer;
-
-    static {
-        try {
-            writer = new BufferedWriter(new FileWriter(toNameFileURL));
-            reader = new BufferedReader(new FileReader(fromNameFileURL));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final String fromNameFilePath = "fromNameFile.txt";
+    private static final String resultNameFilePath = "toNameFile.txt";
+    private static BufferedReader reader;
+    private static BufferedWriter writer;
 
     private static String[] readPersonDataFromFile() throws IOException {
-        String line = reader.readLine().toLowerCase();
+        String line = reader.readLine();
         String[] data = line.split("\\s");
         if(data.length != 2) throw new IndexOutOfBoundsException("Not 2 words in line");
         return data;
@@ -37,21 +29,44 @@ public class Util {
      в нужном формате(Первые буквы слов заглавные).
      */
     public static void convertName() throws IOException {
+        reader = new BufferedReader(new FileReader(fromNameFilePath));
+        writer = new BufferedWriter(new FileWriter(resultNameFilePath, true));
         while (reader.ready()) {
             String[] personData = readPersonDataFromFile();
             for (int i = 0; i < personData.length; i++) {
                 char first = personData[i].charAt(0);
-                personData[i] = personData[i].replaceFirst(String.valueOf(first), String.valueOf(first).toUpperCase());
+                personData[i] = personData[i].toLowerCase().replaceFirst(String.valueOf(first).toLowerCase(),
+                        String.valueOf(first));
             }
             writePersonDataToFile(personData);
         }
         close();
     }
+    public static String generatePhoneNumber() {
+        return generatePhoneNumber(7);
+    }
+    public static String generatePhoneNumber(int countryCode) {
+        StringBuilder result = new StringBuilder("+");
+        result.append(countryCode);
+        for(int i = 0; i < 10; i++) {
+            result.append((int) (Math.random() * 10));
+        }
+        return result.toString();
+    }
+    public static void generateAddingStudentToDatabase(int classId) throws SQLException, IOException {
+        reader = new BufferedReader(new FileReader(resultNameFilePath));
+        String format = "INSERT INTO students(surname, name, phone_number, class_id) VALUES ('%s','%s','%s', %d);";
+        while (reader.ready()) {
+            String[] data = readPersonDataFromFile();
+            String number = generatePhoneNumber();
+            System.out.println(String.format(format, data[0], data[1], number, classId));
+        }
+    }
 
     /**
      * For Testing
      */
-    public static void main(String[] args) throws IOException {
-        convertName();
+    public static void main(String[] args) throws IOException, SQLException {
+        generateAddingStudentToDatabase(6);
     }
 }
