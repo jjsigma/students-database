@@ -53,13 +53,13 @@ public class Util {
         }
         return result.toString();
     }
-    public static void generateAddingStudentToDatabase(int classId) throws SQLException, IOException {
+    public static void generateAddingStudentToDatabase(int classId) throws IOException {
         reader = new BufferedReader(new FileReader(resultNameFilePath));
         String format = "INSERT INTO students(surname, name, phone_number, class_id) VALUES ('%s','%s','%s', %d);";
         while (reader.ready()) {
             String[] data = readPersonDataFromFile();
             String number = generatePhoneNumber();
-            System.out.println(String.format(format, data[0], data[1], number, classId));
+            System.out.printf((format) + "%n", data[0], data[1], number, classId);
         }
     }
 
@@ -67,6 +67,6 @@ public class Util {
      * For Testing
      */
     public static void main(String[] args) throws IOException, SQLException {
-        generateAddingStudentToDatabase(6);
+        generateAddingStudentToDatabase(8);
     }
 }
