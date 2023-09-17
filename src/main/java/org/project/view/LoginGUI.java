@@ -128,8 +128,6 @@ public class LoginGUI extends JFrame {
         String phoneNum = phoneField.getText();
         String grade = (String) gradeBox.getSelectedItem();
         String letter = (String) letterBox.getSelectedItem();
-
-        System.out.println(grade + letter); //!!!
         try {
             int classId = loginDB.getClassID(grade, letter);
             if (classId == -1) {
@@ -137,6 +135,10 @@ public class LoginGUI extends JFrame {
             } else {
                 if (!Util.isPhoneNumberValid(phoneNum)) {
                     JOptionPane.showMessageDialog(null, "Phone number is not valid!");
+                } else if (!Util.isNameValid(name)) {
+                    JOptionPane.showMessageDialog(null, "Name is not valid!");
+                } else if (!Util.isSurnameValid(surname)) {
+                    JOptionPane.showMessageDialog(null, "Surname is not valid!");
                 } else {
                     student = new Student(surname, name, phoneNum, classId);
                     infoPanel.setClassData(grade+letter);

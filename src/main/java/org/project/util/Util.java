@@ -66,6 +66,12 @@ public class Util {
             System.out.printf((format) + "%n", data[0], data[1], number, classId);
         }
     }
+    public static boolean isNameValid(String name) {
+        return Pattern.compile("[А-Я][а-я]+").matcher(name).matches();
+    }
+    public static boolean isSurnameValid(String surname) {
+        return Pattern.compile("[А-Я][а-я]+").matcher(surname).matches();
+    }
     public static boolean isPhoneNumberValid(String phoneNum) {
         Pattern pattern = Pattern.compile("\\+7\\d{10}");
         Matcher matcher = pattern.matcher(phoneNum);
