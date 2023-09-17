@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="4ce9cb35-7b01-4bdf-878f-b3a16dea7cf8">
-      <console name="Database" type="STANDARD" schema="mysql" session="Main"><![CDATA[select * from student_database_schema.classes c join student_database_schema.students s on c.id = s.class_id;]]></console>
+      <console name="Database" type="STANDARD" schema="mysql" session="Main"><![CDATA[select * from student_database_schema.students;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

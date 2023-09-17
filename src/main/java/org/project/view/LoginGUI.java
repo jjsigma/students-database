@@ -1,9 +1,14 @@
 package org.project.view;
 
+import org.project.Student;
+import org.project.sql_connect.LoginDB;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class LoginGUI extends JFrame {
+    private LoginDB loginDB = new LoginDB();
     public LoginGUI(){
         super("Login");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -78,12 +83,12 @@ public class LoginGUI extends JFrame {
         JLabel classLabel = new JLabel("Class: ");
         classLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        Integer[] classGrades = {1,2,3,4,5,6,7,8,9,10,11};
-        JComboBox<Integer> gradeBox = new JComboBox<>(classGrades);
+        String[] classGrades = {"1","2", "3"};
+        JComboBox<String> gradeBox = new JComboBox<>(classGrades);
         gradeBox.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        Character[] classLetters = {'А', 'Б', 'В', 'Г'};
-        JComboBox<Character> letterBox = new JComboBox<>(classLetters);
+        String[] classLetters = {"А", "Б", "B"};
+        JComboBox<String> letterBox = new JComboBox<>(classLetters);
         letterBox.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, classLabel, 105, SpringLayout.WEST, loginPanel);
@@ -100,16 +105,31 @@ public class LoginGUI extends JFrame {
         // login button
         JButton loginButton = new JButton("Login");
         loginButton.setFont(new Font("Dialog", Font.BOLD, 18));
+
         springLayout.putConstraint(SpringLayout.WEST, loginButton, 150, SpringLayout.WEST, loginPanel);
         springLayout.putConstraint(SpringLayout.NORTH, loginButton, 300, SpringLayout.NORTH, loginPanel);
-        loginButton.addActionListener(e -> {
-            String username = nameField.getText();
-            String password = surnameField.getText();
 
-            if(username.equals("username") && password.equals("password")){
-                JOptionPane.showMessageDialog(null, "Login successful!");
-            }else{
-                JOptionPane.showMessageDialog(null, "Login failed!");
+        loginButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String surname = surnameField.getText();
+            String phoneNum = phoneField.getText();
+            String grade = (String) gradeBox.getSelectedItem();
+            String letter = (String) letterBox.getSelectedItem();
+            try {
+                int classId = loginDB.getClassID(grade, letter);
+                if(classId == -1) {
+                    JOptionPane.showMessageDialog(null, "Class doesn't exist!");
+                } else {
+                    Student student = new Student(surname, name, phoneNum, classId);
+                    if (!loginDB.checkIfExist(student)) {
+                        loginDB.add(student);
+                        JOptionPane.showMessageDialog(null, "Account created successfully!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "You logged in successfully!");
+                    }
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         });
 
