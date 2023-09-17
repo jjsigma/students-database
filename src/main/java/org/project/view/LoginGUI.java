@@ -2,23 +2,28 @@ package org.project.view;
 
 import org.project.Student;
 import org.project.sql_connect.LoginDB;
-
+import org.project.util.Util;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
 public class LoginGUI extends JFrame {
-    private LoginDB loginDB = new LoginDB();
-    public LoginGUI(){
+    private InfoPanel infoPanel;
+    private final LoginDB loginDB = new LoginDB();
+    private Student loggedInData;
+    private JTextField nameField, surnameField, phoneField;
+    private JComboBox<String> gradeBox, letterBox;
+    public LoginGUI(InfoPanel infoPanel) {
         super("Login");
+        this.infoPanel = infoPanel;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(400, 400);
         setResizable(false);
         setLocationRelativeTo(null);
     }
-    public void start() {
-        addGUIComponents();
+    public void run() {
         setVisible(true);
+        addGUIComponents();
     }
     private void addGUIComponents(){
         SpringLayout springLayout = new SpringLayout();
@@ -37,7 +42,7 @@ public class LoginGUI extends JFrame {
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        JTextField nameField = new JTextField(15);
+        nameField = new JTextField(15);
         nameField.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, nameLabel, 35, SpringLayout.WEST, loginPanel);
@@ -53,7 +58,7 @@ public class LoginGUI extends JFrame {
         surnameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         //JPasswordField passwordField = new JPasswordField(15);
-        JTextField surnameField = new JTextField(15);
+        surnameField = new JTextField(15);
         surnameField.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, surnameLabel, 35, SpringLayout.WEST, loginPanel);
@@ -68,7 +73,7 @@ public class LoginGUI extends JFrame {
         JLabel phoneLabel = new JLabel("Phone number: ");
         phoneLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        JTextField phoneField = new JTextField(13);
+        phoneField = new JTextField(13);
         phoneField.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, phoneLabel, 35, SpringLayout.WEST, loginPanel);
@@ -83,12 +88,12 @@ public class LoginGUI extends JFrame {
         JLabel classLabel = new JLabel("Class: ");
         classLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        String[] classGrades = {"1","2", "3"};
-        JComboBox<String> gradeBox = new JComboBox<>(classGrades);
+        String[] classGrades = {"1", "2", "3"};
+        gradeBox = new JComboBox<>(classGrades);
         gradeBox.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        String[] classLetters = {"А", "Б", "B"};
-        JComboBox<String> letterBox = new JComboBox<>(classLetters);
+        String[] classLetters = {"А", "Б", "В"};
+        letterBox = new JComboBox<>(classLetters);
         letterBox.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, classLabel, 105, SpringLayout.WEST, loginPanel);
@@ -110,31 +115,43 @@ public class LoginGUI extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, loginButton, 300, SpringLayout.NORTH, loginPanel);
 
         loginButton.addActionListener(e -> {
-            String name = nameField.getText();
-            String surname = surnameField.getText();
-            String phoneNum = phoneField.getText();
-            String grade = (String) gradeBox.getSelectedItem();
-            String letter = (String) letterBox.getSelectedItem();
-            try {
-                int classId = loginDB.getClassID(grade, letter);
-                if(classId == -1) {
-                    JOptionPane.showMessageDialog(null, "Class doesn't exist!");
+            loggedInData = getData();
+            infoPanel.setLoggedInData(loggedInData);
+        });
+        loginPanel.add(loginButton);
+        this.getContentPane().add(loginPanel);
+    }
+    public Student getData() {
+        Student student = null;
+        String name = nameField.getText();
+        String surname = surnameField.getText();
+        String phoneNum = phoneField.getText();
+        String grade = (String) gradeBox.getSelectedItem();
+        String letter = (String) letterBox.getSelectedItem();
+
+        System.out.println(grade + letter); //!!!
+        try {
+            int classId = loginDB.getClassID(grade, letter);
+            if (classId == -1) {
+                JOptionPane.showMessageDialog(null, "Class doesn't exist!");
+            } else {
+                if (!Util.isPhoneNumberValid(phoneNum)) {
+                    JOptionPane.showMessageDialog(null, "Phone number is not valid!");
                 } else {
-                    Student student = new Student(surname, name, phoneNum, classId);
+                    student = new Student(surname, name, phoneNum, classId);
+                    infoPanel.setClassData(grade+letter);
                     if (!loginDB.checkIfExist(student)) {
                         loginDB.add(student);
                         JOptionPane.showMessageDialog(null, "Account created successfully!");
                     } else {
                         JOptionPane.showMessageDialog(null, "You logged in successfully!");
                     }
+                    loginDB.close();
                 }
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
             }
-        });
-
-        loginPanel.add(loginButton);
-
-        this.getContentPane().add(loginPanel);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return student;
     }
 }

@@ -2,6 +2,7 @@ package org.project.sql_connect;
 
 import org.project.Student;
 import org.project.util.Util;
+import org.project.view.InfoPanel;
 
 import java.sql.*;
 
@@ -23,6 +24,8 @@ public class LoginDB {
     public void add(Student student) throws SQLException {
         Statement statement = connection.createStatement();
         statement.executeUpdate(String.format(sql, student.getSurname(),student.getName(), student.getPhoneNumber(), student.getClassID()));
+    }
+    public void close() throws SQLException {
         connection.close();
     }
     public boolean checkIfExist(Student student) throws SQLException {
@@ -38,14 +41,5 @@ public class LoginDB {
         if(!resultSet.next()) id = -1;
         else id = resultSet.getInt(1);
         return id;
-    }
-
-    public static void main(String[] args) {
-//        try {
-//            new LoginDB().add(new Student("Барабуев", "Руслан", Util.generatePhoneNumber(), 6));
-//            System.out.println(new LoginDB().getClassID(2, "Г"));
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

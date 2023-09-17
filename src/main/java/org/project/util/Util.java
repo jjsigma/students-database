@@ -1,7 +1,11 @@
 package org.project.util;
 
+import org.project.Student;
+
 import java.io.*;
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Util {
     private static final String fromNameFilePath = "fromNameFile.txt";
@@ -62,11 +66,16 @@ public class Util {
             System.out.printf((format) + "%n", data[0], data[1], number, classId);
         }
     }
+    public static boolean isPhoneNumberValid(String phoneNum) {
+        Pattern pattern = Pattern.compile("\\+7\\d{10}");
+        Matcher matcher = pattern.matcher(phoneNum);
+        return matcher.matches();
+    }
 
     /**
      * For Testing
      */
     public static void main(String[] args) throws IOException, SQLException {
-        generateAddingStudentToDatabase(8);
+       // generateAddingStudentToDatabase(8);
     }
 }

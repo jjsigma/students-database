@@ -2,8 +2,6 @@ package org.project.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
     public MainFrame() {
@@ -29,23 +27,6 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Info", userInfoPanel);
         userInfoPanel.addInfoComponents();
 
-
-//        tabbedPane.addChangeListener(e -> {
-//            // Получение выделенной вкладки
-//            JPanel panel = (JPanel)((JTabbedPane)e.getSource()).getSelectedComponent();
-//        });
-
-//        tabbedPane.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                // Определяем индекс выделенной мышкой вкладки
-//                int idx = ((JTabbedPane)e.getSource()).indexAtLocation(e.getX(), e.getY());
-//                System.out.println("Выбрана вкладка " + idx);
-//            }
-//        });
         this.getContentPane().add(tabbedPane);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainFrame::new);
     }
 }
