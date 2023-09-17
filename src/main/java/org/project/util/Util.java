@@ -1,4 +1,4 @@
-package org.project;
+package org.project.util;
 
 import java.io.*;
 import java.sql.*;
