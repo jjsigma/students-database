@@ -1,25 +1,27 @@
-package org.project.view;
+package org.project.view.panels;
 
 import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.util.Util;
+import org.project.view.LoginGUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 
-public class InfoPanel extends JPanel {
+public class InfoPanel extends AbstractPanel {
     private final SpringLayout springLayout = new SpringLayout();
     private Student loggedInData;
     private boolean isLoggedIn = false;
-    private LoginDB loginDB = new LoginDB();
+    private final LoginDB loginDB = new LoginDB();
     public void setLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
     }
-    public void addInfoComponents() {
+    @Override
+    public void addComponents() {
         setLayout(springLayout);
-
+        setBackground(Color.cyan);
         //logo
         JLabel logoLabel = new JLabel("Student Info");
         logoLabel.setFont(new Font("Dialog", Font.BOLD, 30));
@@ -111,23 +113,26 @@ public class InfoPanel extends JPanel {
                 loginAction();
             } else {
                 // logout action
-                loggedInData = null;
-                nameResult.setText("*login to see*");
-                surnameResult.setText("*login to see*");
-                phoneResult.setText("*login to see*");
-                classResult.setText("*login to see*");
-                loginButton.setText("login");
-                try {
-                    //deleting user IP from system
-                    String ip = Util.getIPAddress();
-                    int userID = loginDB.getLoggedInUserID(ip);
-                    System.out.println(userID);
-                    loginDB.deleteUserByID(userID);
-                } catch (SQLException | UnknownHostException ex) {
-                    throw new RuntimeException(ex);
+                int confirm = JOptionPane.showConfirmDialog(null, "Do you want to log out?");
+                if (confirm == JOptionPane.YES_OPTION) {
+                    loggedInData = null;
+                    nameResult.setText("*login to see*");
+                    surnameResult.setText("*login to see*");
+                    phoneResult.setText("*login to see*");
+                    classResult.setText("*login to see*");
+                    loginButton.setText("login");
+                    try {
+                        //deleting user IP from system
+                        String ip = Util.getIPAddress();
+                        int userID = loginDB.getLoggedInUserID(ip);
+                        System.out.println(userID);
+                        loginDB.deleteUserByID(userID);
+                    } catch (SQLException | UnknownHostException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    setLoggedIn(false);
+                    JOptionPane.showMessageDialog(null, "You logged out!");
                 }
-                setLoggedIn(false);
-                JOptionPane.showMessageDialog(null, "You logged out!");
             }
         });
         refreshButton.addActionListener(e -> {

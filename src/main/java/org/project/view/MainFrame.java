@@ -3,6 +3,9 @@ package org.project.view;
 import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.util.Util;
+import org.project.view.panels.GeneralPanel;
+import org.project.view.panels.HomeworkPanel;
+import org.project.view.panels.InfoPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +15,8 @@ import java.sql.SQLException;
 public class MainFrame extends JFrame {
     private LoginDB loginDB = new LoginDB();
     private InfoPanel userInfoPanel = new InfoPanel();;
+    private GeneralPanel general = new GeneralPanel();
+    private HomeworkPanel homeworkPanel = new HomeworkPanel();
     private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
     public MainFrame() {
@@ -37,13 +42,16 @@ public class MainFrame extends JFrame {
         tabbedPane.setFont(new Font("Dialog", Font.BOLD, 20));
 
         //general
-        GeneralPanel general = new GeneralPanel();
         tabbedPane.addTab("General", general);
-        general.addGeneralComponents();
+        general.addComponents();
+
+        //homework
+        tabbedPane.addTab("Homework", homeworkPanel);
+        homeworkPanel.addComponents();
 
         //user info
         tabbedPane.addTab("Info", userInfoPanel);
-        userInfoPanel.addInfoComponents();
+        userInfoPanel.addComponents();
 
         this.getContentPane().add(tabbedPane);
     }

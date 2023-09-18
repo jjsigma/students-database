@@ -1,8 +1,6 @@
 package org.project.sql_connect;
 
 import org.project.Student;
-import org.project.util.Util;
-import org.project.view.InfoPanel;
 
 import java.sql.*;
 
@@ -84,10 +82,4 @@ public class LoginDB {
         statement.executeUpdate(String.format("INSERT INTO logged_in_users (ip, student_id) VALUES ('%s', %d)", ip, userID));
     }
 
-    /**
-     * For testing
-     */
-    public static void main(String[] args) throws SQLException {
-       // System.out.println(new LoginDB().getStudentByID(384).getSurname());
-    }
 }

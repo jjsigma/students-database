@@ -3,6 +3,7 @@ package org.project.view;
 import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.util.Util;
+import org.project.view.panels.InfoPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.net.UnknownHostException;

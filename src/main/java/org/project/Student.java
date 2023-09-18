@@ -1,6 +1,7 @@
 package org.project;
 
 public class Student {
+
     private String surname;
     private String name;
     private String phoneNumber;
