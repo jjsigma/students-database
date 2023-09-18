@@ -5,6 +5,7 @@ import org.project.sql_connect.LoginDB;
 import org.project.util.Util;
 import javax.swing.*;
 import java.awt.*;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 public class LoginGUI extends JFrame {
@@ -145,13 +146,21 @@ public class LoginGUI extends JFrame {
                     if (!loginDB.checkIfExist(student)) {
                         loginDB.add(student);
                         JOptionPane.showMessageDialog(null, "Account created successfully!");
+                        int id = loginDB.getIDByStudentData(student);
+
+                        loginDB.addIPToUsersDB(Util.getIPAddress(), id);
+                        infoPanel.setLoggedIn(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "You logged in successfully!");
+                        int id = loginDB.getIDByStudentData(student);
+
+                        loginDB.addIPToUsersDB(Util.getIPAddress(), id);
+                        infoPanel.setLoggedIn(true);
                     }
                     loginDB.close();
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | UnknownHostException ex) {
             throw new RuntimeException(ex);
         }
         return student;

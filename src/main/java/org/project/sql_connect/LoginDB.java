@@ -46,6 +46,14 @@ public class LoginDB {
         if(!resultSet.next()) return -1;
         else return resultSet.getInt(1);
     }
+    public int getIDByStudentData(Student student) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM students WHERE name = '%s' AND surname = '%s' AND phone_number = '%s' AND class_id = %d;",
+                student.getName(), student.getSurname(), student.getPhoneNumber(), student.getClassID()));
+        if(resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return -1;
+    }
     public Student getStudentByID(int id) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE id = %d", id));
         Student student = null;
@@ -69,6 +77,11 @@ public class LoginDB {
     }
     public void deleteUserByID(int id) throws SQLException {
         statement.executeUpdate("DELETE FROM logged_in_users WHERE student_id = "+id);
+    }
+    public void addIPToUsersDB(String ip, int userID) throws SQLException {
+        System.out.println(userID);
+        if(userID == -1) throw new IllegalArgumentException("Id is illegal to add in Ip database!");
+        statement.executeUpdate(String.format("INSERT INTO logged_in_users (ip, student_id) VALUES ('%s', %d)", ip, userID));
     }
 
     /**

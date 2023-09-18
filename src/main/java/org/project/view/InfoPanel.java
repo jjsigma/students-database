@@ -106,10 +106,10 @@ public class InfoPanel extends JPanel {
             if(loginButton.getText().equals("login") && isLoggedIn) {
                 // if already logged in(checks ip)
                 JOptionPane.showMessageDialog(null, "You've already entered account!");
-            }else if(loginButton.getText().equals("login")) {
+            } else if(loginButton.getText().equals("login")) {
                 //login action
                 loginAction();
-            }else {
+            } else {
                 // logout action
                 loggedInData = null;
                 nameResult.setText("*login to see*");
@@ -118,6 +118,7 @@ public class InfoPanel extends JPanel {
                 classResult.setText("*login to see*");
                 loginButton.setText("login");
                 try {
+                    //deleting user IP from system
                     String ip = Util.getIPAddress();
                     int userID = loginDB.getLoggedInUserID(ip);
                     System.out.println(userID);
