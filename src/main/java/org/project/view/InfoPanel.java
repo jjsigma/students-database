@@ -7,7 +7,10 @@ import java.awt.*;
 public class InfoPanel extends JPanel {
     private final SpringLayout springLayout = new SpringLayout();
     private Student loggedInData;
-    private String classData;
+    private boolean isLoggedIn = false;
+    public void setLoggedIn(boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+    }
     public void addInfoComponents() {
         setLayout(springLayout);
 
@@ -94,10 +97,14 @@ public class InfoPanel extends JPanel {
 
         //action listeners
         loginButton.addActionListener(e -> {
-            if(loginButton.getText().equals("login")) {
+            if(loginButton.getText().equals("login") && isLoggedIn) {
+                // if already logged in(checks ip)
+                JOptionPane.showMessageDialog(null, "You've already entered account!");
+            }else if(loginButton.getText().equals("login")) {
+                //login action
                 loginAction();
             }else {
-                // log out action;
+                // logout action
                 loggedInData = null;
                 nameResult.setText("*login to see*");
                 surnameResult.setText("*login to see*");
@@ -116,7 +123,7 @@ public class InfoPanel extends JPanel {
             nameResult.setText(loggedInData.getName());
             surnameResult.setText(loggedInData.getSurname());
             phoneResult.setText(loggedInData.getPhoneNumber());
-            classResult.setText(classData);
+            classResult.setText(loggedInData.getClassData());
             loginButton.setText("logout");
         });
         add(refreshButton);
@@ -129,7 +136,5 @@ public class InfoPanel extends JPanel {
     public void setLoggedInData(Student loggedInData) {
         this.loggedInData = loggedInData;
     }
-    public void setClassData(String classData) {
-        this.classData = classData;
-    }
+
 }

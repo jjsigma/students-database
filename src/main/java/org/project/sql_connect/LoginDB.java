@@ -42,4 +42,40 @@ public class LoginDB {
         else id = resultSet.getInt(1);
         return id;
     }
+    public int getLoggedInUserID(String ip) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT student_id FROM logged_in_users WHERE ip = '%s'", ip));
+        if(!resultSet.next()) return -1;
+        else return resultSet.getInt(1);
+    }
+    public Student getStudentByID(int id) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE id = %d", id));
+        Student student = null;
+        if (resultSet.next()) {
+            student = new Student(
+                    resultSet.getString("surname"),
+                    resultSet.getString("name"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getInt("class_id"));
+        }
+        return student;
+    }
+    public String getClassData(Student student) throws SQLException {
+        int classID = student.getClassID();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT grade, letter FROM classes WHERE id = "+classID);
+        String data = null;
+        if(resultSet.next()) {
+            data = resultSet.getString(1)+resultSet.getString(2);
+        }
+        return data;
+    }
+
+    /**
+     * For testing
+     */
+    public static void main(String[] args) throws SQLException {
+       // System.out.println(new LoginDB().getStudentByID(384).getSurname());
+    }
 }

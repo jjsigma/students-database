@@ -1,9 +1,8 @@
 package org.project.util;
 
-import org.project.Student;
-
 import java.io.*;
-import java.sql.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,13 +56,15 @@ public class Util {
         }
         return result.toString();
     }
-    public static void generateAddingStudentToDatabase(int classId) throws IOException {
+    public static void generateAddingStudentToDatabase(int fromClassId, int toClassInd) throws IOException {
         reader = new BufferedReader(new FileReader(resultNameFilePath));
         String format = "INSERT INTO students(surname, name, phone_number, class_id) VALUES ('%s','%s','%s', %d);";
-        while (reader.ready()) {
-            String[] data = readPersonDataFromFile();
-            String number = generatePhoneNumber();
-            System.out.printf((format) + "%n", data[0], data[1], number, classId);
+        for(int classId = fromClassId; classId <= toClassInd; classId++) {
+            for (int i = 0; i < 20; i++) {
+                String[] data = readPersonDataFromFile();
+                String number = generatePhoneNumber();
+                System.out.printf((format) + "%n", data[0], data[1], number, classId);
+            }
         }
     }
     public static boolean isNameValid(String name) {
@@ -77,11 +78,16 @@ public class Util {
         Matcher matcher = pattern.matcher(phoneNum);
         return matcher.matches();
     }
+    public static String getIPAddress() throws UnknownHostException {
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        System.out.println("IP: "+ ip);
+        return ip;
+    }
 
     /**
      * For Testing
      */
-    public static void main(String[] args) throws IOException, SQLException {
-       // generateAddingStudentToDatabase(8);
+    public static void main(String[] args) throws IOException {
+        System.out.println(getIPAddress());
     }
 }

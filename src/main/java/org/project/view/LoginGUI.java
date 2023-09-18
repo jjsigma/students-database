@@ -88,11 +88,11 @@ public class LoginGUI extends JFrame {
         JLabel classLabel = new JLabel("Class: ");
         classLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        String[] classGrades = {"1", "2", "3"};
+        String[] classGrades = {"1", "2", "3", "4", "5"};
         gradeBox = new JComboBox<>(classGrades);
         gradeBox.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        String[] classLetters = {"А", "Б", "В"};
+        String[] classLetters = {"А", "Б", "В", "Г", "Д"};
         letterBox = new JComboBox<>(classLetters);
         letterBox.setFont(new Font("Dialog", Font.PLAIN, 18));
 
@@ -141,7 +141,7 @@ public class LoginGUI extends JFrame {
                     JOptionPane.showMessageDialog(null, "Surname is not valid!");
                 } else {
                     student = new Student(surname, name, phoneNum, classId);
-                    infoPanel.setClassData(grade+letter);
+                    student.setClassData(grade+letter);
                     if (!loginDB.checkIfExist(student)) {
                         loginDB.add(student);
                         JOptionPane.showMessageDialog(null, "Account created successfully!");

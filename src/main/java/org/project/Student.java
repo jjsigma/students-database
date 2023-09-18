@@ -5,6 +5,7 @@ public class Student {
     private String name;
     private String phoneNumber;
     private int classID;
+    private String classData;
 
     public Student() {
     }
@@ -29,5 +30,13 @@ public class Student {
 
     public int getClassID() {
         return classID;
+    }
+
+    public String getClassData() {
+        return classData;
+    }
+
+    public void setClassData(String classData) {
+        this.classData = classData;
     }
 }
