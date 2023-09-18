@@ -8,9 +8,11 @@ import java.sql.*;
 
 public class LoginDB {
     private Connection connection;
+    private Statement statement;
     public LoginDB() {
         try {
             connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -22,20 +24,17 @@ public class LoginDB {
                          password = "root";
 
     public void add(Student student) throws SQLException {
-        Statement statement = connection.createStatement();
         statement.executeUpdate(String.format(sql, student.getSurname(),student.getName(), student.getPhoneNumber(), student.getClassID()));
     }
     public void close() throws SQLException {
         connection.close();
     }
     public boolean checkIfExist(Student student) throws SQLException {
-        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE surname = '%s' AND name = '%s' AND phone_number = '%s'",
                 student.getSurname(), student.getName(), student.getPhoneNumber()));
         return resultSet.next();
     }
     public int getClassID(String grade, String letter) throws SQLException {
-        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM classes WHERE grade = %d AND letter = '%s'", Integer.parseInt(grade), letter));
         int id;
         if(!resultSet.next()) id = -1;
@@ -43,13 +42,11 @@ public class LoginDB {
         return id;
     }
     public int getLoggedInUserID(String ip) throws SQLException {
-        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT student_id FROM logged_in_users WHERE ip = '%s'", ip));
         if(!resultSet.next()) return -1;
         else return resultSet.getInt(1);
     }
     public Student getStudentByID(int id) throws SQLException {
-        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE id = %d", id));
         Student student = null;
         if (resultSet.next()) {
@@ -63,13 +60,15 @@ public class LoginDB {
     }
     public String getClassData(Student student) throws SQLException {
         int classID = student.getClassID();
-        Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT grade, letter FROM classes WHERE id = "+classID);
         String data = null;
         if(resultSet.next()) {
             data = resultSet.getString(1)+resultSet.getString(2);
         }
         return data;
+    }
+    public void deleteUserByID(int id) throws SQLException {
+        statement.executeUpdate("DELETE FROM logged_in_users WHERE student_id = "+id);
     }
 
     /**
