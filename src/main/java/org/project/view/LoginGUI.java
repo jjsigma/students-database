@@ -13,7 +13,9 @@ public class LoginGUI extends JFrame {
     private InfoPanel infoPanel;
     private final LoginDB loginDB = new LoginDB();
     private Student loggedInData;
-    private JTextField nameField, surnameField, phoneField;
+    private JTextField nameResult = new JTextField(15),
+            surnameResult = new JTextField(15),
+            phoneResult = new JTextField(13);;
     private JComboBox<String> gradeBox, letterBox;
     public LoginGUI(InfoPanel infoPanel) {
         super("Login");
@@ -44,47 +46,44 @@ public class LoginGUI extends JFrame {
         JLabel nameLabel = new JLabel("Name: ");
         nameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        nameField = new JTextField(15);
-        nameField.setFont(new Font("Dialog", Font.PLAIN, 18));
+        nameResult.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, nameLabel, 35, SpringLayout.WEST, loginPanel);
         springLayout.putConstraint(SpringLayout.NORTH, nameLabel, 45, SpringLayout.NORTH, loginPanel);
-        springLayout.putConstraint(SpringLayout.WEST, nameField, 135, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, nameField, 45, SpringLayout.NORTH, loginPanel);
+        springLayout.putConstraint(SpringLayout.WEST, nameResult, 135, SpringLayout.WEST, loginPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, nameResult, 45, SpringLayout.NORTH, loginPanel);
 
         loginPanel.add(nameLabel);
-        loginPanel.add(nameField);
+        loginPanel.add(nameResult);
 
         // surname
         JLabel surnameLabel = new JLabel("Surname: ");
         surnameLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         //JPasswordField passwordField = new JPasswordField(15);
-        surnameField = new JTextField(15);
-        surnameField.setFont(new Font("Dialog", Font.PLAIN, 18));
+        surnameResult.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, surnameLabel, 35, SpringLayout.WEST, loginPanel);
         springLayout.putConstraint(SpringLayout.NORTH, surnameLabel, 95, SpringLayout.NORTH, loginPanel);
-        springLayout.putConstraint(SpringLayout.WEST, surnameField, 135, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, surnameField, 95, SpringLayout.NORTH, loginPanel);
+        springLayout.putConstraint(SpringLayout.WEST, surnameResult, 135, SpringLayout.WEST, loginPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, surnameResult, 95, SpringLayout.NORTH, loginPanel);
 
         loginPanel.add(surnameLabel);
-        loginPanel.add(surnameField);
+        loginPanel.add(surnameResult);
 
         //phone number
         JLabel phoneLabel = new JLabel("Phone number: ");
         phoneLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-        phoneField = new JTextField(13);
-        phoneField.setFont(new Font("Dialog", Font.PLAIN, 18));
+        phoneResult.setFont(new Font("Dialog", Font.PLAIN, 18));
 
         springLayout.putConstraint(SpringLayout.WEST, phoneLabel, 35, SpringLayout.WEST, loginPanel);
         springLayout.putConstraint(SpringLayout.NORTH, phoneLabel, 145, SpringLayout.NORTH, loginPanel);
-        springLayout.putConstraint(SpringLayout.WEST, phoneField, 163, SpringLayout.WEST, loginPanel);
-        springLayout.putConstraint(SpringLayout.NORTH, phoneField, 145, SpringLayout.NORTH, loginPanel);
+        springLayout.putConstraint(SpringLayout.WEST, phoneResult, 163, SpringLayout.WEST, loginPanel);
+        springLayout.putConstraint(SpringLayout.NORTH, phoneResult, 145, SpringLayout.NORTH, loginPanel);
 
         loginPanel.add(phoneLabel);
-        loginPanel.add(phoneField);
+        loginPanel.add(phoneResult);
 
         //classes
         JLabel classLabel = new JLabel("Class: ");
@@ -125,9 +124,9 @@ public class LoginGUI extends JFrame {
     }
     public Student getData() {
         Student student = null;
-        String name = nameField.getText();
-        String surname = surnameField.getText();
-        String phoneNum = phoneField.getText();
+        String name = nameResult.getText();
+        String surname = surnameResult.getText();
+        String phoneNum = phoneResult.getText();
         String grade = (String) gradeBox.getSelectedItem();
         String letter = (String) letterBox.getSelectedItem();
         try {

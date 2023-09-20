@@ -13,11 +13,11 @@ import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 public class MainFrame extends JFrame {
-    private LoginDB loginDB = new LoginDB();
-    private InfoPanel userInfoPanel = new InfoPanel();;
-    private GeneralPanel general = new GeneralPanel();
-    private HomeworkPanel homeworkPanel = new HomeworkPanel();
-    private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+    private final LoginDB loginDB = new LoginDB();
+    private final InfoPanel userInfoPanel = new InfoPanel();
+    private final GeneralPanel general = new GeneralPanel();
+    private final HomeworkPanel homeworkPanel = new HomeworkPanel();
+    private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
     public MainFrame() {
         super("Students.net");
@@ -25,7 +25,6 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
-        setVisible(true);
         boolean isLoggedIn;
         try {
             isLoggedIn = checkIfLoggedIn();
@@ -34,6 +33,7 @@ public class MainFrame extends JFrame {
             throw new RuntimeException(e);
         }
         createTabs();
+        setVisible(true);
         if(isLoggedIn) {
             JOptionPane.showMessageDialog(null, "Logged in account!\nPress 'refresh' button.");
         }

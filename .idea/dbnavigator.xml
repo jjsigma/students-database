@@ -20,11 +20,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="4ce9cb35-7b01-4bdf-878f-b3a16dea7cf8" object-ref="schemas/student_database_schema/tables/students" />
-      <object connection-id="4ce9cb35-7b01-4bdf-878f-b3a16dea7cf8" object-ref="schemas/student_database_schema/tables/logged_in_users" />
-      <object connection-id="4ce9cb35-7b01-4bdf-878f-b3a16dea7cf8" object-ref="schemas/student_database_schema/tables/classes" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="4ce9cb35-7b01-4bdf-878f-b3a16dea7cf8" dataset="student_database_schema.logged_in_users" active-filter-id="EMPTY_FILTER" />

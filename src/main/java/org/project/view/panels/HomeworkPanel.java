@@ -3,7 +3,7 @@ package org.project.view.panels;
 import javax.swing.*;
 import java.awt.*;
 
-public class HomeworkPanel extends AbstractPanel{
+public class HomeworkPanel extends AbstractPanel {
     private final SpringLayout springLayout = new SpringLayout();
     @Override
     public void addComponents() {

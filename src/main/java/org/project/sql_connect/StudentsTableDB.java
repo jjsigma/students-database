@@ -21,22 +21,26 @@ public class StudentsTableDB {
             user = "root",
             password = "root";
 
-    public String[][] getTableData() throws SQLException {
-        ResultSet countSet = statement.executeQuery("SELECT COUNT(*) FROM students;");
-        int count = 0;
-        if(countSet.next()) {
-            count = countSet.getInt(1);
-        }
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM students;");
-        int i = 0;
-        tableData = new String[count][5];
-        while (resultSet.next()) {
-            tableData[i][0] = String.valueOf(resultSet.getInt("id"));
-            tableData[i][1] = resultSet.getString("surname");
-            tableData[i][2] = resultSet.getString("name");
-            tableData[i][3] = resultSet.getString("phone_number");
-            tableData[i][4] = String.valueOf(resultSet.getInt("class_id"));
-            i++;
+    public String[][] getTableData() {
+        try {
+            ResultSet countSet = statement.executeQuery("SELECT COUNT(*) FROM students;");
+            int count = 0;
+            if (countSet.next()) {
+                count = countSet.getInt(1);
+            }
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students;");
+            int i = 0;
+            tableData = new String[count][5];
+            while (resultSet.next()) {
+                tableData[i][0] = String.valueOf(resultSet.getInt("id"));
+                tableData[i][1] = resultSet.getString("surname");
+                tableData[i][2] = resultSet.getString("name");
+                tableData[i][3] = resultSet.getString("phone_number");
+                tableData[i][4] = String.valueOf(resultSet.getInt("class_id"));
+                i++;
+            }
+        } catch(SQLException w) {
+            w.printStackTrace();
         }
         return tableData;
     }

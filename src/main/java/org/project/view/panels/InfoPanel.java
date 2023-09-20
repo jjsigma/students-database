@@ -15,6 +15,7 @@ public class InfoPanel extends AbstractPanel {
     private Student loggedInData;
     private boolean isLoggedIn = false;
     private final LoginDB loginDB = new LoginDB();
+
     public void setLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
     }

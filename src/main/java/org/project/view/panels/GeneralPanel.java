@@ -1,14 +1,12 @@
 package org.project.view.panels;
 
-import org.project.view.StudentsTableGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import org.project.view.TableGUI;
 
 public class GeneralPanel extends AbstractPanel {
-
     private final SpringLayout springLayout = new SpringLayout();
-    private StudentsTableGUI studentsTableGUI = new StudentsTableGUI();
     @Override
     public void addComponents() {
         setLayout(springLayout);
@@ -30,7 +28,7 @@ public class GeneralPanel extends AbstractPanel {
         springLayout.putConstraint(SpringLayout.NORTH, mainTableButton, 100, SpringLayout.NORTH, this);
 
         mainTableButton.addActionListener(e -> {
-            studentsTableGUI.run();
+            new TableGUI().setVisible(true);
         });
 
         add(mainTableButton);
