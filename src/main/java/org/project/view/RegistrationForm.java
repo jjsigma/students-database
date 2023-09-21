@@ -7,6 +7,7 @@ package org.project.view;
 import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.util.Util;
+import org.project.view.panels.ReallyTestFrame;
 
 import javax.swing.*;
 import java.net.UnknownHostException;
@@ -18,11 +19,13 @@ import java.sql.SQLException;
  */
 public class RegistrationForm extends javax.swing.JFrame {
     private LoginDB loginDB = new LoginDB();
+    private ReallyTestFrame reallyTestFrame;
 
     /**
      * Creates new form RegistrationForm
      */
-    public RegistrationForm() {
+    public RegistrationForm(ReallyTestFrame reallyTestFrame) {
+        this.reallyTestFrame = reallyTestFrame;
         initComponents();
     }
 
@@ -397,7 +400,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         jPanel6.add(jComboBox9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 232, 90, 40));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -475,8 +478,9 @@ public class RegistrationForm extends javax.swing.JFrame {
                             assert gender != null;
                             student = new Student(surname, name, phoneNum, classId, gender, password);
                             student.setClassData(grade+letter);
-                                System.out.println(student.getPassword()+" "+student.getName());
+                            System.out.println(student.getPassword()+" "+student.getName());
                             loginDB.add(student);
+                            setData(student);
                             JOptionPane.showMessageDialog(null, "Account created successfully!");
                             int id = loginDB.getIDByStudentData(student);
 
@@ -592,13 +596,11 @@ public class RegistrationForm extends javax.swing.JFrame {
                 int id = loginDB.getIDByStudentData(new Student(name, surname, password));
                 loginDB.addIPToUsersDB(Util.getIPAddress(), id);
                 loginDB.setLoggedIn(true);
-
                 Student data = loginDB.getStudentByID(id);
-                jTextField2.setText(data.getName());
-                jTextField3.setText(data.getSurname());
-                jTextField4.setText(data.getPhoneNumber());
-                jPasswordField2.setText(data.getPassword());
-                jPasswordField1.setText(data.getPassword());
+                data.setClassData(loginDB.getClassData(data));
+
+                setData(data);
+
                 JOptionPane.showMessageDialog(null, "Logged in successfully!");
             } catch (SQLException | UnknownHostException ex) {
                 throw new RuntimeException(ex);
@@ -730,6 +732,10 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
+    private void setData(Student student) {
+        reallyTestFrame.setData(student);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -756,13 +762,6 @@ public class RegistrationForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(RegistrationForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistrationForm().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify

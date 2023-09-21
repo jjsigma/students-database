@@ -98,4 +98,8 @@ public class LoginDB {
     public void setLoggedInData(Student loggedInData) {
         this.loggedInData = loggedInData;
     }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
 }
