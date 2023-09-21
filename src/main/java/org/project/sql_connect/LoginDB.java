@@ -7,6 +7,10 @@ import java.sql.*;
 public class LoginDB {
     private Connection connection;
     private Statement statement;
+    private boolean isLoggedIn = false;
+    private Student loggedInData;
+
+
     public LoginDB() {
         try {
             connection = DriverManager.getConnection(url, user, password);
@@ -15,21 +19,26 @@ public class LoginDB {
             throw new RuntimeException(e);
         }
     }
-    private static final String sql = "INSERT INTO students(surname, name, phone_number, class_id) " +
-            "VALUES ('%s', '%s', '%s', %d)";
     private static final String url = "jdbc:mysql://localhost:3306/student_database_schema",
                          user = "root",
                          password = "root";
 
     public void add(Student student) throws SQLException {
-        statement.executeUpdate(String.format(sql, student.getSurname(),student.getName(), student.getPhoneNumber(), student.getClassID()));
+        statement.executeUpdate(String.format("INSERT INTO students (name, surname, phone_number, class_id, password, gender) " +
+                        "VALUES ('%s', '%s', '%s', %d, '%s', '%s')",
+                student.getName(),
+                student.getSurname(),
+                student.getPhoneNumber(),
+                student.getClassID(),
+                student.getPassword(),
+                student.getGender()));
     }
     public void close() throws SQLException {
         connection.close();
     }
-    public boolean checkIfExist(Student student) throws SQLException {
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE surname = '%s' AND name = '%s' AND phone_number = '%s'",
-                student.getSurname(), student.getName(), student.getPhoneNumber()));
+    public boolean checkIfExist(String name, String surname, String password) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE surname = '%s' AND name = '%s' AND password = '%s'",
+                surname, name, password));
         return resultSet.next();
     }
     public int getClassID(String grade, String letter) throws SQLException {
@@ -45,10 +54,10 @@ public class LoginDB {
         else return resultSet.getInt(1);
     }
     public int getIDByStudentData(Student student) throws SQLException {
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM students WHERE name = '%s' AND surname = '%s' AND phone_number = '%s' AND class_id = %d;",
-                student.getName(), student.getSurname(), student.getPhoneNumber(), student.getClassID()));
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM students WHERE name = '%s' AND surname = '%s' AND password = '%s';",
+                student.getName(), student.getSurname(), student.getPassword()));
         if(resultSet.next()) {
-            return resultSet.getInt(1);
+            return resultSet.getInt("id");
         }
         return -1;
     }
@@ -60,7 +69,9 @@ public class LoginDB {
                     resultSet.getString("surname"),
                     resultSet.getString("name"),
                     resultSet.getString("phone_number"),
-                    resultSet.getInt("class_id"));
+                    resultSet.getInt("class_id"),
+                    resultSet.getString("gender"),
+                    resultSet.getString("password"));
         }
         return student;
     }
@@ -81,5 +92,10 @@ public class LoginDB {
         if(userID == -1) throw new IllegalArgumentException("Id is illegal to add in Ip database!");
         statement.executeUpdate(String.format("INSERT INTO logged_in_users (ip, student_id) VALUES ('%s', %d)", ip, userID));
     }
-
+    public void setLoggedIn(boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+    }
+    public void setLoggedInData(Student loggedInData) {
+        this.loggedInData = loggedInData;
+    }
 }

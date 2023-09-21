@@ -143,7 +143,8 @@ public class LoginGUI extends JFrame {
                 } else {
                     student = new Student(surname, name, phoneNum, classId);
                     student.setClassData(grade+letter);
-                    if (!loginDB.checkIfExist(student)) {
+                    String password = null;
+                    if (!loginDB.checkIfExist(name, surname, password)) {
                         loginDB.add(student);
                         JOptionPane.showMessageDialog(null, "Account created successfully!");
                         int id = loginDB.getIDByStudentData(student);
