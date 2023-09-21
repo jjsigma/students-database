@@ -5,17 +5,11 @@ package org.project.view.panels;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.sql_connect.MarksTableDB;
-import org.project.util.Util;
-import org.w3c.dom.ls.LSOutput;
+import org.project.view.RegistrationForm;
 
 import javax.swing.*;
-import java.awt.*;
-import java.net.UnknownHostException;
-import java.sql.SQLException;
-import java.util.Arrays;
 
 import static java.awt.Font.PLAIN;
 
@@ -24,9 +18,9 @@ import static java.awt.Font.PLAIN;
  * @author PC
  */
 public class ReallyTestFrame extends javax.swing.JFrame {
+    private final RegistrationForm registrationForm = new RegistrationForm();
     private final MarksTableDB marksTableDB = new MarksTableDB();
     private final LoginDB loginDB = new LoginDB();
-    private Student loggedInData;
 
     /**
      * Creates new form TestFrame
@@ -157,231 +151,233 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         jLabel5.setText("Online: 1000");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 130, 30));
 
-        jTabbedPane3.setFont(new java.awt.Font("sansserif", 0, 16)); // NOI18N
+        //LOGIN REGISTER
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel1.setText("Confirm:");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 120, 40));
-
-        jLabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel2.setText("Name:");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 90, 40));
-
-        jLabel3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel3.setText("Surname:");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 120, 40));
-
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel4.setText("Phone:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 40));
-
-        //NAME
-
-        jTextField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 190, 40));
-
-        // SURNAME
-
-        jTextField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 190, 40));
-
-        // PHONE
-
-        jTextField4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 190, 40));
-
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel6.setText("Gender:");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 90, 40));
-
-        // GENDER
-
-        jComboBox1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 190, 40));
-        jPanel4.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel7.setText("Class:");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 40));
-
-        //PASSWORD REPEAT
-
-        jPasswordField1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, 40));
-
-        jLabel8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel8.setText("Password:");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 120, 40));
-
-        //PASSWORD
-
-        jPasswordField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jPanel4.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 190, 40));
-
-        // CLASS
-
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "А", "Б", "В", "Г", "Д" }));
-        jPanel4.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 90, 40));
-
-        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
-        jPanel4.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 232, 90, 40));
-
-        //SIGN UP BUTTON
-        jButton1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        jButton1.setText("Sign Up");
-
-        jButton1.addActionListener(e -> {
-            Student student = null;
-            String name = jTextField2.getText();
-            String surname = jTextField3.getText();
-            String phoneNum = jTextField4.getText();
-            String gender = (String) jComboBox1.getSelectedItem();
-            String grade = (String) jComboBox4.getSelectedItem();
-            String letter = (String) jComboBox3.getSelectedItem();
-            String password = jPasswordField2.getText();
-            String passwordRepeat = jPasswordField1.getText();
-
-            if(!password.equals(passwordRepeat)) {
-                JOptionPane.showMessageDialog(null, "Passwords are not similar!");
-                throw new IllegalArgumentException("passwords are not similar!");
-            }
-            try {
-                int classId = loginDB.getClassID(grade, letter);
-                if (classId == -1) {
-                    JOptionPane.showMessageDialog(null, "Class doesn't exist!");
-                } else {
-                    if (!Util.isPhoneNumberValid(phoneNum)) {
-                        JOptionPane.showMessageDialog(null, "Phone number is not valid!");
-                    } else if (!Util.isNameValid(name)) {
-                        JOptionPane.showMessageDialog(null, "Name is not valid!");
-                    } else if (!Util.isSurnameValid(surname)) {
-                        JOptionPane.showMessageDialog(null, "Surname is not valid!");
-                    } else {
-                        if (!loginDB.checkIfExist(name, surname, password)) {
-                            assert gender != null;
-                            student = new Student(surname, name, phoneNum, classId, gender, password);
-                            student.setClassData(grade+letter);
-                                System.out.println(student.getPassword()+" "+student.getName());
-                            loginDB.add(student);
-                            JOptionPane.showMessageDialog(null, "Account created successfully!");
-                            int id = loginDB.getIDByStudentData(student);
-
-                            loginDB.addIPToUsersDB(Util.getIPAddress(), id);
-                            loginDB.setLoggedIn(true);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Account already exists!");
-                            throw new IllegalArgumentException("account already exists!");
-                        }
-                        loginDB.close();
-                    }
-                }
-            } catch (SQLException | UnknownHostException ex) {
-                throw new RuntimeException(ex);
-            }
-            loginDB.setLoggedInData(student);
-        });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
-
-
-        jTabbedPane3.addTab("Register", jPanel4);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 20, 390, 490));
-
-        jLabel9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel9.setText("Name:");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 90, 40));
-
-        jLabel10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel10.setText("Surname:");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 120, 40));
-
-        jTextField6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 190, 40));
-
-        jTextField7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 190, 40));
-
-        jLabel11.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel11.setText("Password:");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 120, 40));
-
-        jPasswordField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jPanel3.add(jPasswordField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 190, 40));
-
-        jButton2.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
-        jButton2.setText("Login");
-        jButton2.addActionListener(e -> {
-            String name = jTextField7.getText();
-            String surname = jTextField6.getText();
-            String password = jPasswordField3.getText();
-            System.out.println("Login::password = "+password);
-            try {
-                if(!loginDB.checkIfExist(name, surname, password)) {
-                    JOptionPane.showMessageDialog(null, "Account doesn't exist!");
-                    throw new IllegalArgumentException("Account doesn't exist!");
-                }
-                int id = loginDB.getIDByStudentData(new Student(name, surname, password));
-                loginDB.addIPToUsersDB(Util.getIPAddress(), id);
-                loginDB.setLoggedIn(true);
-
-                Student data = loginDB.getStudentByID(id);
-                jTextField2.setText(data.getName());
-                jTextField3.setText(data.getSurname());
-                jTextField4.setText(data.getPhoneNumber());
-                jPasswordField2.setText(data.getPassword());
-                jPasswordField1.setText(data.getPassword());
-                JOptionPane.showMessageDialog(null, "Logged in successfully!");
-            } catch (SQLException | UnknownHostException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
-
-        jTabbedPane3.addTab("Login", jPanel3);
-
-        jPanel1.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 390, 490));
+//        jTabbedPane3.setFont(new java.awt.Font("sansserif", 0, 16)); // NOI18N
+//
+//        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
+//        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+//
+//        jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel1.setText("Confirm:");
+//        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 120, 40));
+//
+//        jLabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel2.setText("Name:");
+//        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 90, 40));
+//
+//        jLabel3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel3.setText("Surname:");
+//        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 120, 40));
+//
+//        jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel4.setText("Phone:");
+//        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 40));
+//
+//        //NAME
+//
+//        jTextField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jTextField2.addActionListener(this::jTextField2ActionPerformed);
+//        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 190, 40));
+//
+//        // SURNAME
+//
+//        jTextField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextField3ActionPerformed(evt);
+//            }
+//        });
+//        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 190, 40));
+//
+//        // PHONE
+//
+//        jTextField4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextField4ActionPerformed(evt);
+//            }
+//        });
+//        jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 190, 40));
+//
+//        jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel6.setText("Gender:");
+//        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 90, 40));
+//
+//        // GENDER
+//
+//        jComboBox1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+//        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jComboBox1ActionPerformed(evt);
+//            }
+//        });
+//        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 190, 40));
+//        jPanel4.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+//
+//        jLabel7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel7.setText("Class:");
+//        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 40));
+//
+//        //PASSWORD REPEAT
+//
+//        jPasswordField1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jPasswordField1ActionPerformed(evt);
+//            }
+//        });
+//        jPanel4.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, 40));
+//
+//        jLabel8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel8.setText("Password:");
+//        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 120, 40));
+//
+//        //PASSWORD
+//
+//        jPasswordField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jPanel4.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 190, 40));
+//
+//        // CLASS
+//
+//        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+//        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "А", "Б", "В", "Г", "Д" }));
+//        jPanel4.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 90, 40));
+//
+//        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+//        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+//        jPanel4.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 232, 90, 40));
+//
+//        //SIGN UP BUTTON
+//        jButton1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+//        jButton1.setText("Sign Up");
+//
+//        jButton1.addActionListener(e -> {
+//            Student student = null;
+//            String name = jTextField2.getText();
+//            String surname = jTextField3.getText();
+//            String phoneNum = jTextField4.getText();
+//            String gender = (String) jComboBox1.getSelectedItem();
+//            String grade = (String) jComboBox4.getSelectedItem();
+//            String letter = (String) jComboBox3.getSelectedItem();
+//            String password = jPasswordField2.getText();
+//            String passwordRepeat = jPasswordField1.getText();
+//
+//            if(!password.equals(passwordRepeat)) {
+//                JOptionPane.showMessageDialog(null, "Passwords are not similar!");
+//                throw new IllegalArgumentException("passwords are not similar!");
+//            }
+//            try {
+//                int classId = loginDB.getClassID(grade, letter);
+//                if (classId == -1) {
+//                    JOptionPane.showMessageDialog(null, "Class doesn't exist!");
+//                } else {
+//                    if (!Util.isPhoneNumberValid(phoneNum)) {
+//                        JOptionPane.showMessageDialog(null, "Phone number is not valid!");
+//                    } else if (!Util.isNameValid(name)) {
+//                        JOptionPane.showMessageDialog(null, "Name is not valid!");
+//                    } else if (!Util.isSurnameValid(surname)) {
+//                        JOptionPane.showMessageDialog(null, "Surname is not valid!");
+//                    } else {
+//                        if (!loginDB.checkIfExist(name, surname, password)) {
+//                            assert gender != null;
+//                            student = new Student(surname, name, phoneNum, classId, gender, password);
+//                            student.setClassData(grade+letter);
+//                                System.out.println(student.getPassword()+" "+student.getName());
+//                            loginDB.add(student);
+//                            JOptionPane.showMessageDialog(null, "Account created successfully!");
+//                            int id = loginDB.getIDByStudentData(student);
+//
+//                            loginDB.addIPToUsersDB(Util.getIPAddress(), id);
+//                            loginDB.setLoggedIn(true);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "Account already exists!");
+//                            throw new IllegalArgumentException("account already exists!");
+//                        }
+//                        loginDB.close();
+//                    }
+//                }
+//            } catch (SQLException | UnknownHostException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//            loginDB.setLoggedInData(student);
+//        });
+//        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
+//
+//
+//        jTabbedPane3.addTab("Register", jPanel4);
+//
+//        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
+//        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+//
+//        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
+//        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+//        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 20, 390, 490));
+//
+//        jLabel9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel9.setText("Name:");
+//        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 90, 40));
+//
+//        jLabel10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel10.setText("Surname:");
+//        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 120, 40));
+//
+//        jTextField6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextField6ActionPerformed(evt);
+//            }
+//        });
+//        jPanel3.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 190, 40));
+//
+//        jTextField7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextField7ActionPerformed(evt);
+//            }
+//        });
+//        jPanel3.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 190, 40));
+//
+//        jLabel11.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jLabel11.setText("Password:");
+//        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 120, 40));
+//
+//        jPasswordField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+//        jPanel3.add(jPasswordField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 190, 40));
+//
+//        jButton2.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+//        jButton2.setText("Login");
+//        jButton2.addActionListener(e -> {
+//            String name = jTextField7.getText();
+//            String surname = jTextField6.getText();
+//            String password = jPasswordField3.getText();
+//            System.out.println("Login::password = "+password);
+//            try {
+//                if(!loginDB.checkIfExist(name, surname, password)) {
+//                    JOptionPane.showMessageDialog(null, "Account doesn't exist!");
+//                    throw new IllegalArgumentException("Account doesn't exist!");
+//                }
+//                int id = loginDB.getIDByStudentData(new Student(name, surname, password));
+//                loginDB.addIPToUsersDB(Util.getIPAddress(), id);
+//                loginDB.setLoggedIn(true);
+//
+//                Student data = loginDB.getStudentByID(id);
+//                jTextField2.setText(data.getName());
+//                jTextField3.setText(data.getSurname());
+//                jTextField4.setText(data.getPhoneNumber());
+//                jPasswordField2.setText(data.getPassword());
+//                jPasswordField1.setText(data.getPassword());
+//                JOptionPane.showMessageDialog(null, "Logged in successfully!");
+//            } catch (SQLException | UnknownHostException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        });
+//        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
+//
+//        jTabbedPane3.addTab("Login", jPanel3);
+//
+//        jPanel1.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 390, 490));
 
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
