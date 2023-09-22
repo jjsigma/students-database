@@ -5,8 +5,8 @@ import org.project.Student;
 import java.sql.*;
 
 public class LoginDB {
-    private Connection connection;
-    private Statement statement;
+    private final Connection connection;
+    private final Statement statement;
     private boolean isLoggedIn = false;
 
     public LoginDB() {

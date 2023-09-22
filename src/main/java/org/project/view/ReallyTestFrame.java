@@ -4,15 +4,11 @@ import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.sql_connect.MarksTableDB;
 import org.project.util.Util;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashMap;
 
 import static java.awt.Font.PLAIN;
@@ -271,13 +267,14 @@ public class ReallyTestFrame extends javax.swing.JFrame {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            };
         });
         jTable1.setPreferredSize(new java.awt.Dimension(390, 420));
         jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.setDefaultEditor(Object.class, null);
+        jTable1.setRowHeight(25);
         jScrollPane1.setViewportView(jTable1);
 
         jScrollPane2.setViewportView(jScrollPane1);
@@ -373,6 +370,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
 
         pack();
     }
+
     public class AvgMarkCounter {
         private HashMap<String, JLabel> subjects = new HashMap<>() {{
             put("Maths", jLabel37);
@@ -405,7 +403,6 @@ public class ReallyTestFrame extends javax.swing.JFrame {
             }
         }
     }
-
     public AvgMarkCounter getAvgMarkCounter() {
         return avgMarkCounter;
     }
@@ -418,6 +415,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         jLabel47.setText(data.getClassData());
         jButton8.setText("Logout");
         try {
+            avgMarkCounter.count(loginDB.getIDByStudentData(data));
             jLabel5.setText("Online: " + loginDB.getAmountOfOnlineUsers());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -439,16 +437,14 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         }
         loginDB.setLoggedIn(false);
     }
-    private boolean checkIfLoggedIn() throws UnknownHostException, SQLException {
+    private void checkIfLoggedIn() throws UnknownHostException, SQLException {
         String ip = Util.getIPAddress();
         int userID = loginDB.getLoggedInUserID(ip);
         if(userID != -1) {
             Student user = loginDB.getStudentByID(userID);
             user.setClassData(loginDB.getClassData(user));
             setData(user);
-            return true;
         }
-        return false;
     }
 
     private javax.swing.JButton jButton3;

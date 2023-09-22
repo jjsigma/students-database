@@ -35,7 +35,7 @@ public class MarksTableDB {
             if (countSet.next()) {
                 count = countSet.getInt(1);
             }
-            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM marks WHERE user_id = %d AND subject_id = %d;",
+            ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM marks WHERE user_id = %d AND subject_id = %d ORDER BY date;",
                     studentID, getSubjectIDByName(subject)));
             int i = 0;
             tableData = new String[count][3];
@@ -76,16 +76,13 @@ public class MarksTableDB {
         return nullData;
     }
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private int refreshData() throws SQLException {
-        int studentID = new LoginDB().getIDByStudentData(student);
-        return studentID;
+        return new LoginDB().getIDByStudentData(student);
     }
     public int getSubjectIDByName(String subject) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM subjects WHERE name = '%s';", subject));
         if(resultSet.next()) {
-            int id = resultSet.getInt("id");
-            return id;
+            return resultSet.getInt("id");
         }
         return -1;
     }
