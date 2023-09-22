@@ -4,6 +4,7 @@ import org.project.Student;
 import org.project.sql_connect.LoginDB;
 import org.project.sql_connect.MarksTableDB;
 import org.project.util.Util;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +24,7 @@ import static java.awt.Font.PLAIN;
 public class ReallyTestFrame extends javax.swing.JFrame {
     private final MarksTableDB marksTableDB = new MarksTableDB();
     private final LoginDB loginDB = new LoginDB();
+    private AvgMarkCounter avgMarkCounter;
 
     public ReallyTestFrame() {
         setResizable(false);
@@ -88,6 +90,8 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+
+        avgMarkCounter = new AvgMarkCounter();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Students.net");
@@ -305,7 +309,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
 
         jLabel31.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("4.68");
+        jLabel31.setText("0.00");
         jPanel11.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 120, 40));
 
         jLabel32.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -330,32 +334,32 @@ public class ReallyTestFrame extends javax.swing.JFrame {
 
         jLabel37.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel37.setText("4.38");
+        jLabel37.setText("0.00");
         jPanel11.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 120, 40));
 
         jLabel38.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setText("4.73");
+        jLabel38.setText("0.00");
         jPanel11.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 120, 40));
 
         jLabel39.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel39.setText("3.85");
+        jLabel39.setText("0.00");
         jPanel11.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 120, 40));
 
         jLabel40.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("4.92");
+        jLabel40.setText("0.00");
         jPanel11.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 120, 40));
 
         jLabel41.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel41.setText("4.13");
+        jLabel41.setText("0.00");
         jPanel11.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 120, 40));
 
         jLabel42.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setText("5.0");
+        jLabel42.setText("0.00");
         jPanel11.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 120, 40));
 
         jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 390, 490));
@@ -369,7 +373,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
 
         pack();
     }
-    private class AvgMarkCounter {
+    public class AvgMarkCounter {
         private HashMap<String, JLabel> subjects = new HashMap<>() {{
             put("Maths", jLabel37);
             put("Russian", jLabel42);
@@ -379,22 +383,31 @@ public class ReallyTestFrame extends javax.swing.JFrame {
             put("Law", jLabel41);
             put("ITC", jLabel31);
         }};
-        public void count() {
+        public void setZero() {
+            for(JLabel jLabel : subjects.values()) {
+                jLabel.setText("0.00");
+            }
+        }
+        public void count(int studentID) {
             try {
                 for(String s : subjects.keySet()) {
-                    int sum = marksTableDB.getSumMarksBySubject(s);
-                    int amount = marksTableDB.getNumberOfMarksBySubject(s);
-                    if (sum == -1 || amount == -1) {
-                        subjects.get(s).setText(s+": 0.00");
+                    int sum = marksTableDB.getSumMarksBySubject(s, studentID);
+                    int amount = marksTableDB.getNumberOfMarksBySubject(s, studentID);
+                    if (sum == 0 || amount == 0) {
+                        subjects.get(s).setText("0.00");
+                    } else {
+                        double avg = (sum * 1.00) / (amount * 1.00);
+                        subjects.get(s).setText(String.format("%.2f", avg));
                     }
-                    double avg = sum/amount;
-//                    System.out.println(s+": "+avg);
-                    subjects.get(s).setText(s+": "+avg);
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public AvgMarkCounter getAvgMarkCounter() {
+        return avgMarkCounter;
     }
 
     public void setData(Student data) {
@@ -405,7 +418,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         jLabel47.setText(data.getClassData());
         jButton8.setText("Logout");
         try {
-            jLabel5.setText("Online: "+loginDB.getAmountOfOnlineUsers());
+            jLabel5.setText("Online: " + loginDB.getAmountOfOnlineUsers());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -418,6 +431,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         jLabel46.setText("*login to see*");
         jLabel47.setText("*login to see*");
         jButton8.setText("Login");
+        avgMarkCounter.setZero();
         try {
             jLabel5.setText("Online: " + (+loginDB.getAmountOfOnlineUsers() - 1));
         } catch (SQLException e) {

@@ -51,23 +51,25 @@ public class MarksTableDB {
         }
         return tableData;
     }
-    public int getSumMarksBySubject(String subject) throws SQLException {
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT SUM(value) FROM marks WHERE name = '%s';", subject));
+    public int getSumMarksBySubject(String subject, int studentID) throws SQLException {
+        int id = getSubjectIDByName(subject);
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT SUM(value) FROM marks WHERE subject_id = %d AND user_id = %d", id, studentID));
         if(resultSet.next()) {
             int sum = resultSet.getInt(1);
             System.out.println("Sum: " + sum);
             return sum;
         }
-        return -1;
+        return 0;
     }
-    public int getNumberOfMarksBySubject(String subject) throws SQLException {
-        ResultSet resultSet = statement.executeQuery(String.format("SELECT COUNT(*) FROM marks WHERE name = '%s';", subject));
+    public int getNumberOfMarksBySubject(String subject, int studentID) throws SQLException {
+        int id = getSubjectIDByName(subject);
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT COUNT(*) FROM marks WHERE subject_id = %d AND user_id = %d", id, studentID));
         if(resultSet.next()) {
             int amount = resultSet.getInt(1);
             System.out.println("Amount: " + amount);
             return amount;
         }
-        return -1;
+        return 0;
     }
 
     public String[][] getNullData() {

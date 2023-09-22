@@ -9,8 +9,11 @@ import org.project.sql_connect.LoginDB;
 import org.project.util.Util;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+
+import static java.awt.Font.PLAIN;
 
 /**
  *
@@ -116,183 +119,183 @@ public class RegistrationForm extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel1.setText("Confirm:");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 120, 40));
 
-        jLabel2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel2.setText("Name:");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 90, 40));
 
-        jLabel3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel3.setText("Surname:");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 120, 40));
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel4.setText("Phone:");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 40));
 
-        jTextField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 190, 40));
 
-        jTextField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 190, 40));
 
-        jTextField4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField4.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 190, 40));
 
-        jButton1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButton1.setFont(new java.awt.Font("SansSerif", PLAIN, 24)); // NOI18N
         jButton1.setText("Sign Up");
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
 
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel6.setText("Gender:");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 90, 40));
 
-        jComboBox1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jComboBox1.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
         jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 190, 40));
         jPanel4.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel7.setText("Class:");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 40));
 
-        jPasswordField1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jPasswordField1.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel4.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, 40));
 
-        jLabel8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel8.setText("Password:");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 120, 40));
 
-        jPasswordField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jPasswordField2.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel4.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 190, 40));
 
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jComboBox3.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "А", "Б", "В", "Г", "Д" }));
         jPanel4.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 90, 40));
 
-        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jComboBox4.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         jPanel4.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 232, 90, 40));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel5.setText("Confirm:");
         jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 120, 40));
 
-        jLabel9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel9.setText("Name:");
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 90, 40));
 
-        jLabel10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel10.setText("Surname:");
         jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 120, 40));
 
-        jLabel11.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel11.setText("Phone:");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 40));
 
-        jTextField5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField5.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel5.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 190, 40));
 
-        jTextField6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField6.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel5.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 190, 40));
 
-        jTextField7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField7.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel5.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 190, 40));
 
-        jButton2.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButton2.setFont(new java.awt.Font("SansSerif", PLAIN, 24)); // NOI18N
         jButton2.setText("Sign Up");
         jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel12.setText("Gender:");
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 90, 40));
 
-        jComboBox2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jComboBox2.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         jPanel5.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 190, 40));
         jPanel5.add(jTabbedPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel13.setText("Class:");
         jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 40));
 
-        jPasswordField3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jPasswordField3.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel5.add(jPasswordField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, 40));
 
-        jLabel14.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel14.setText("Password:");
         jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 120, 40));
 
-        jPasswordField4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jPasswordField4.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel5.add(jPasswordField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 190, 40));
 
-        jComboBox5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jComboBox5.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "А", "Б", "В", "Г", "Д" }));
         jPanel5.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 90, 40));
 
-        jComboBox6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jComboBox6.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         jPanel5.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 232, 90, 40));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel15.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel15.setText("Confirm:");
         jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 120, 40));
 
-        jLabel16.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel16.setText("Name:");
         jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 90, 40));
 
-        jLabel17.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel17.setText("Surname:");
         jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 120, 40));
 
-        jLabel18.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel18.setText("Phone:");
         jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 40));
 
-        jTextField8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField8.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel6.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 190, 40));
 
-        jTextField9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField9.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel6.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 190, 40));
 
-        jTextField10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField10.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel6.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 190, 40));
 
-        jButton3.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jButton3.setFont(new java.awt.Font("SansSerif", PLAIN, 24)); // NOI18N
         jButton3.setText("Sign Up");
         jPanel6.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
 
-        jLabel19.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel19.setText("Gender:");
         jPanel6.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 90, 40));
 
-        jComboBox7.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jComboBox7.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         jPanel6.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 190, 40));
         jPanel6.add(jTabbedPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel20.setText("Class:");
         jPanel6.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 90, 40));
 
-        jPasswordField5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jPasswordField5.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel6.add(jPasswordField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, 40));
 
-        jLabel21.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jLabel21.setText("Password:");
         jPanel6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 120, 40));
 
-        jPasswordField6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jPasswordField6.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jPanel6.add(jPasswordField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 190, 40));
 
         jComboBox8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -336,8 +339,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jButton4.setText("Sign Up");
 
+        // Register
         jButton4.addActionListener(e -> {
-            Student student = null;
+            Student student;
             String name = jTextField11.getText();
             String surname = jTextField12.getText();
             String phoneNum = jTextField13.getText();
@@ -375,6 +379,7 @@ public class RegistrationForm extends javax.swing.JFrame {
 
                             loginDB.addIPToUsersDB(Util.getIPAddress(), id);
                             loginDB.setLoggedIn(true);
+                            reallyTestFrame.getAvgMarkCounter().count(id);
                         } else {
                             JOptionPane.showMessageDialog(null, "Account already exists!");
                             throw new IllegalArgumentException("account already exists!");
@@ -451,6 +456,8 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
         jButton5.setText("Login");
+
+        // Login
         jButton5.addActionListener(e -> {
             String name = jTextField15.getText();
             String surname = jTextField14.getText();
@@ -462,13 +469,14 @@ public class RegistrationForm extends javax.swing.JFrame {
                     throw new IllegalArgumentException("Account doesn't exist!");
                 }
                 int id = loginDB.getIDByStudentData(new Student(name, surname, password));
+
                 loginDB.addIPToUsersDB(Util.getIPAddress(), id);
                 loginDB.setLoggedIn(true);
 
                 Student data = loginDB.getStudentByID(id);
                 data.setClassData(loginDB.getClassData(data));
                 setData(data);
-
+                reallyTestFrame.getAvgMarkCounter().count(id);
                 JOptionPane.showMessageDialog(null, "Logged in successfully!");
             } catch (SQLException | UnknownHostException ex) {
                 throw new RuntimeException(ex);
