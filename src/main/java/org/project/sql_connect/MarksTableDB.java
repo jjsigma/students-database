@@ -1,15 +1,19 @@
 package org.project.sql_connect;
 
-import javax.swing.*;
+import org.project.Student;
+
 import java.sql.*;
 
 public class MarksTableDB {
     private Connection connection;
     private Statement statement;
+    private Student student;  // Data = surname, name, phone number, class id
     private String[][] tableData;
     private String[] columns = {"Date", "Mark", "Comment"};
+    private String[][] nullData = new String[0][3];
     private String subject;
-    private JComboBox<String> subjectBox;                  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
     public MarksTableDB() {
         try {
             connection = DriverManager.getConnection(url, user, password);
@@ -22,8 +26,9 @@ public class MarksTableDB {
             user = "root",
             password = "root";
 
-    public String[][] getTableData(int studentID) {
+    public String[][] getTableData() {
         try {
+            int studentID = refreshData();
             ResultSet countSet = statement.executeQuery(String.format("SELECT COUNT(*) FROM marks WHERE user_id = %d AND subject_id = %d;",
                     studentID, getSubjectIDByName(subject)));
             int count = 0;
@@ -38,6 +43,7 @@ public class MarksTableDB {
                 tableData[i][0] = String.valueOf(resultSet.getDate("date"));
                 tableData[i][1] = String.valueOf(resultSet.getInt("value"));
                 tableData[i][2] = resultSet.getString("comment");
+                System.out.println(tableData[i][0] +" "+tableData[i][1] +" "+tableData[i][2]);
                 i++;
             }
         } catch(SQLException w) {
@@ -45,13 +51,21 @@ public class MarksTableDB {
         }
         return tableData;
     }
-    public void refresh() {
-        setSubject((String) subjectBox.getSelectedItem());                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    public String[][] getNullData() {
+        return nullData;
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private int refreshData() throws SQLException {
+        int studentID = new LoginDB().getIDByStudentData(student);
+        return studentID;
     }
     public int getSubjectIDByName(String subject) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM subjects WHERE name = '%s';", subject));
         if(resultSet.next()) {
-            return resultSet.getInt("id");
+            int id = resultSet.getInt("id");
+            return id;
         }
         return -1;
     }
@@ -62,16 +76,17 @@ public class MarksTableDB {
         }
         return null;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public void setSubject(String subject) {
         this.subject = subject;
-    }
-
-    public JComboBox<String> getSubjectBox() {
-        return subjectBox;
-    }
-
-    public void setSubjectBox(JComboBox<String> subjectBox) {
-        this.subjectBox = subjectBox;
     }
 
     public String[] getColumns() {

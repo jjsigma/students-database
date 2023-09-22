@@ -8,8 +8,6 @@ public class LoginDB {
     private Connection connection;
     private Statement statement;
     private boolean isLoggedIn = false;
-    private Student loggedInData;
-
 
     public LoginDB() {
         try {
@@ -53,9 +51,17 @@ public class LoginDB {
         if(!resultSet.next()) return -1;
         else return resultSet.getInt(1);
     }
+    private String getPasswordByStudentData(Student student) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT password FROM students WHERE name = '%s' AND surname = '%s';",
+                student.getName(), student.getSurname()));
+        if(resultSet.next()) {
+            return resultSet.getString("password");
+        }
+        return null;
+    }
     public int getIDByStudentData(Student student) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT id FROM students WHERE name = '%s' AND surname = '%s' AND password = '%s';",
-                student.getName(), student.getSurname(), student.getPassword()));
+                student.getName(), student.getSurname(), (student.getPassword() == null ? getPasswordByStudentData(student) : student.getPassword())));
         if(resultSet.next()) {
             return resultSet.getInt("id");
         }
@@ -92,13 +98,16 @@ public class LoginDB {
         if(userID == -1) throw new IllegalArgumentException("Id is illegal to add in Ip database!");
         statement.executeUpdate(String.format("INSERT INTO logged_in_users (ip, student_id) VALUES ('%s', %d)", ip, userID));
     }
+    public int getAmountOfOnlineUsers() throws SQLException {
+        ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM logged_in_users;");
+        if(resultSet.next()) {
+            return resultSet.getInt(1);
+        }
+        return 0;
+    }
     public void setLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
     }
-    public void setLoggedInData(Student loggedInData) {
-        this.loggedInData = loggedInData;
-    }
-
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
