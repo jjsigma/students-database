@@ -51,6 +51,24 @@ public class MarksTableDB {
         }
         return tableData;
     }
+    public int getSumMarksBySubject(String subject) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT SUM(value) FROM marks WHERE name = '%s';", subject));
+        if(resultSet.next()) {
+            int sum = resultSet.getInt(1);
+            System.out.println("Sum: " + sum);
+            return sum;
+        }
+        return -1;
+    }
+    public int getNumberOfMarksBySubject(String subject) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT COUNT(*) FROM marks WHERE name = '%s';", subject));
+        if(resultSet.next()) {
+            int amount = resultSet.getInt(1);
+            System.out.println("Amount: " + amount);
+            return amount;
+        }
+        return -1;
+    }
 
     public String[][] getNullData() {
         return nullData;
