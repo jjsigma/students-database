@@ -158,7 +158,6 @@ public class LoginGUI extends JFrame {
                         loginDB.addIPToUsersDB(Util.getIPAddress(), id);
                         infoPanel.setLoggedIn(true);
                     }
-                    loginDB.close();
                 }
             }
         } catch (SQLException | UnknownHostException ex) {

@@ -87,7 +87,7 @@ public class ReallyTestFrame extends javax.swing.JFrame {
         avgMarkCounter = new AvgMarkCounter();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Students.net");
+        setTitle("Student");
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(200, 200, 1000, 800));

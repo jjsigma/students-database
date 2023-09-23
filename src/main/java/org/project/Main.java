@@ -10,7 +10,7 @@ public class Main {
         int choice = JOptionPane.showConfirmDialog(null, "Yes: student\nNo: teacher");
         if(choice == JOptionPane.YES_OPTION) {
             SwingUtilities.invokeLater(ReallyTestFrame::new);
-        }else if(choice == JOptionPane.NO_OPTION) {
+        } else if(choice == JOptionPane.NO_OPTION) {
             SwingUtilities.invokeLater(TeacherFrame::new);
         }
     }

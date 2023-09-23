@@ -31,9 +31,6 @@ public class LoginDB {
                 student.getPassword(),
                 student.getGender()));
     }
-    public void close() throws SQLException {
-        connection.close();
-    }
     public boolean checkIfExist(String name, String surname, String password) throws SQLException {
         ResultSet resultSet = statement.executeQuery(String.format("SELECT * FROM students WHERE surname = '%s' AND name = '%s' AND password = '%s'",
                 surname, name, password));

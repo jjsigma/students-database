@@ -18,15 +18,13 @@ public class RegistrationForm extends javax.swing.JFrame {
     private LoginDB loginDB = new LoginDB();
     private ReallyTestFrame reallyTestFrame;
 
-    /**
-     * Creates new form RegistrationForm
-     */
     public RegistrationForm(ReallyTestFrame reallyTestFrame) {
         this.reallyTestFrame = reallyTestFrame;
         initComponents();
     }
 
     private void initComponents() {
+        setResizable(false);
 
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -378,7 +376,6 @@ public class RegistrationForm extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Account already exists!");
                             throw new IllegalArgumentException("account already exists!");
                         }
-                        loginDB.close();
                     }
                 }
             } catch (SQLException | UnknownHostException ex) {
@@ -491,7 +488,8 @@ public class RegistrationForm extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>
+        setLocationRelativeTo(null);
+    }
 
     private void setData(Student student) {
         reallyTestFrame.setData(student);

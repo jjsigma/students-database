@@ -1,19 +1,26 @@
 package org.project.teacher;
 
+import org.project.sql_connect.TeacherLoginDB;
+import org.project.util.Util;
+
 import javax.swing.*;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 /**
  *
  * @author tylerpants
  */
 public class TeacherFrame extends javax.swing.JFrame {
+    private final TeacherLoginDB teacherLoginDB = new TeacherLoginDB();
 
     public TeacherFrame() {
+        setTitle("Teacher");
         setResizable(false);
         initComponents();
         setVisible(true);
     }
-    @SuppressWarnings("unchecked")
+
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
@@ -37,7 +44,6 @@ public class TeacherFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -102,7 +108,26 @@ public class TeacherFrame extends javax.swing.JFrame {
         jButton1.setText("Login");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(e -> {
-
+            if(jButton1.getText().equals("Login") && teacherLoginDB.isLoggedIn()) {
+                JOptionPane.showMessageDialog(null, "Already in account!");
+            } else if(jButton1.getText().equals("Login")) {
+                new TeacherLoginGUI(this).setVisible(true);
+            } else {
+                //logout action
+                int confirm = JOptionPane.showConfirmDialog(null, "Do you want to log out?");
+                if (confirm == JOptionPane.YES_OPTION) {
+//                    setLogoutData();
+//                    try {
+//                        //deleting user IP from system
+//                        String ip = Util.getIPAddress();
+//                        int userID = teacherLoginDB.getLoggedInUserID(ip);
+//                        teacherLoginDB.deleteUserByID(userID);
+//                    } catch (SQLException | UnknownHostException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+                    JOptionPane.showMessageDialog(null, "You logged out!");
+                }
+            }
         });
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 190, 60));
 
@@ -174,14 +199,6 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 480, 380));
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI", 0, 45)); // NOI18N
-        jButton2.setText("Login");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.addActionListener(e -> {
-
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-140, -68, -1, -1));
-
         jButton3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton3.setText("Print");
         jButton3.addActionListener(e -> {
@@ -224,7 +241,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jTextField2.setText("Comment");
 
-        jDateChooser1.setDateFormatString("MMM-mm-yy");
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
         jDateChooser1.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -292,7 +309,6 @@ public class TeacherFrame extends javax.swing.JFrame {
     }
 
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
