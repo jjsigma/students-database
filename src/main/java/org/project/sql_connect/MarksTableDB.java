@@ -1,6 +1,6 @@
 package org.project.sql_connect;
 
-import org.project.Student;
+import org.project.student.Student;
 
 import java.sql.*;
 
@@ -39,6 +39,7 @@ public class MarksTableDB {
                     studentID, getSubjectIDByName(subject)));
             int i = 0;
             tableData = new String[count][3];
+            System.out.println("--------"+subject+"--------");
             while (resultSet.next()) {
                 tableData[i][0] = String.valueOf(resultSet.getDate("date"));
                 tableData[i][1] = String.valueOf(resultSet.getInt("value"));
@@ -55,9 +56,7 @@ public class MarksTableDB {
         int id = getSubjectIDByName(subject);
         ResultSet resultSet = statement.executeQuery(String.format("SELECT SUM(value) FROM marks WHERE subject_id = %d AND user_id = %d", id, studentID));
         if(resultSet.next()) {
-            int sum = resultSet.getInt(1);
-            System.out.println("Sum: " + sum);
-            return sum;
+            return resultSet.getInt(1);
         }
         return 0;
     }
@@ -65,9 +64,7 @@ public class MarksTableDB {
         int id = getSubjectIDByName(subject);
         ResultSet resultSet = statement.executeQuery(String.format("SELECT COUNT(*) FROM marks WHERE subject_id = %d AND user_id = %d", id, studentID));
         if(resultSet.next()) {
-            int amount = resultSet.getInt(1);
-            System.out.println("Amount: " + amount);
-            return amount;
+            return resultSet.getInt(1);
         }
         return 0;
     }

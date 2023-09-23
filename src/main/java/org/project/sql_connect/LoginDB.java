@@ -1,6 +1,6 @@
 package org.project.sql_connect;
 
-import org.project.Student;
+import org.project.student.Student;
 
 import java.sql.*;
 
@@ -94,7 +94,6 @@ public class LoginDB {
         statement.executeUpdate("DELETE FROM logged_in_users WHERE student_id = "+id);
     }
     public void addIPToUsersDB(String ip, int userID) throws SQLException {
-        System.out.println(userID);
         if(userID == -1) throw new IllegalArgumentException("Id is illegal to add in Ip database!");
         statement.executeUpdate(String.format("INSERT INTO logged_in_users (ip, student_id) VALUES ('%s', %d)", ip, userID));
     }
