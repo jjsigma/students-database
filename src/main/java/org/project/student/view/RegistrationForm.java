@@ -1,7 +1,7 @@
 package org.project.student.view;
 
 import org.project.student.Student;
-import org.project.sql_connect.LoginDB;
+import org.project.student.sql.LoginDB;
 import org.project.util.Util;
 
 import javax.swing.*;

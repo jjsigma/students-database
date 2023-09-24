@@ -1,7 +1,7 @@
 package org.project;
 
 import org.project.student.view.ReallyTestFrame;
-import org.project.teacher.TeacherFrame;
+import org.project.teacher.view.TeacherFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 

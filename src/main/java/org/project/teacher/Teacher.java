@@ -8,11 +8,12 @@ public class Teacher {
     private String subjectData;
     private String password;
 
-    public Teacher(String surname, String name, String phoneNumber, int subjectID) {
+    public Teacher(String surname, String name, String phoneNumber, int subjectID, String password) {
         this.surname = surname;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.subjectID = subjectID;
+        this.password = phoneNumber;
     }
     public Teacher(String name, String surname, String password) {
         this.name = name;
