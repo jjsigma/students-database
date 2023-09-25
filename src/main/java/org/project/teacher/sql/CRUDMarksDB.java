@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 public class CRUDMarksDB {
     private Connection connection;
     private Statement statement;
-    private TeacherMarksTableDB teacherMarksTableDB = new TeacherMarksTableDB();
-    private LoginDB loginDB = new LoginDB();
+    private final TeacherMarksTableDB teacherMarksTableDB = new TeacherMarksTableDB();
+    private final LoginDB loginDB = new LoginDB();
     private String oldDate;
     private int oldMark;
     private String oldComment;

@@ -1,6 +1,5 @@
 package org.project.teacher.sql;
 
-import org.project.student.sql.LoginDB;
 import org.project.teacher.Teacher;
 
 import java.sql.*;

@@ -8,13 +8,15 @@ import javax.swing.*;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 
+import static java.awt.Font.PLAIN;
+
 /**
  *
  * @author tylerpants
  */
 public class TeacherLoginGUI extends javax.swing.JFrame {
     private final TeacherLoginDB teacherLoginDB = new TeacherLoginDB();
-    private TeacherFrame teacherFrame;
+    private final TeacherFrame teacherFrame;
 
     public TeacherLoginGUI(TeacherFrame teacherFrame) {
         this.teacherFrame = teacherFrame;
@@ -42,33 +44,33 @@ public class TeacherLoginGUI extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 10));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", PLAIN, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 380, 50));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 34)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", PLAIN, 34)); // NOI18N
         jLabel2.setText("Password:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 150, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 34)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", PLAIN, 34)); // NOI18N
         jLabel3.setText("Name:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 150, 50));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 34)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", PLAIN, 34)); // NOI18N
         jLabel4.setText("Surname:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 150, 50));
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Segoe UI", PLAIN, 23)); // NOI18N
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 160, 50));
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 23)); // NOI18N
+        jTextField3.setFont(new java.awt.Font("Segoe UI", PLAIN, 23)); // NOI18N
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 160, 50));
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 160, 50));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI", PLAIN, 36)); // NOI18N
         jButton1.setText("Log in");
         jButton1.addActionListener(e -> {
             String name = jTextField2.getText();

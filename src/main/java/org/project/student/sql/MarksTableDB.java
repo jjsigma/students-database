@@ -9,8 +9,8 @@ public class MarksTableDB {
     private Statement statement;
     private Student student;  // Data = surname, name, phone number, class id
     private String[][] tableData;
-    private String[] columns = {"Date", "Mark", "Comment"};
-    private String[][] nullData = new String[0][3];
+    private final String[] columns = {"Date", "Mark", "Comment"};
+    private final String[][] nullData = new String[0][3];
     private String subject;
 
 
@@ -89,10 +89,6 @@ public class MarksTableDB {
             return resultSet.getString("name");
         }
         return null;
-    }
-
-    public Student getStudent() {
-        return student;
     }
 
     public void setStudent(Student student) {
