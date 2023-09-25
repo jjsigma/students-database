@@ -1,6 +1,6 @@
 package org.project.teacher.view;
 
-import org.project.student.sql.LoginDB;
+import org.project.teacher.sql.CRUDMarksDB;
 import org.project.teacher.sql.TeacherLoginDB;
 import org.project.teacher.Teacher;
 import org.project.teacher.sql.TeacherMarksTableDB;
@@ -8,7 +8,12 @@ import org.project.teacher.sql.TeacherMarksTableDB;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -16,8 +21,9 @@ import java.util.Objects;
  * @author tylerpants
  */
 public class TeacherFrame extends javax.swing.JFrame {
-    private final TeacherLoginDB teacherLoginDB = new TeacherLoginDB();
     private final TeacherMarksTableDB teacherMarksTableDB = new TeacherMarksTableDB();
+    private final TeacherLoginDB teacherLoginDB = new TeacherLoginDB();
+    private final CRUDMarksDB crudMarksDB = new CRUDMarksDB();
 
     public TeacherFrame() {
         setTitle("Teacher");
@@ -28,11 +34,6 @@ public class TeacherFrame extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -53,6 +54,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox5 = new javax.swing.JComboBox<>();
         jComboBox6 = new javax.swing.JComboBox<>();
+        jComboBox7 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -67,19 +69,6 @@ public class TeacherFrame extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-                jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-                jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(jTree1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -181,6 +170,32 @@ public class TeacherFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setDefaultEditor(Object.class, null);
+        jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = jTable1.rowAtPoint(e.getPoint()); // var1
+                System.out.println(row);
+                int row2 = jTable1.getSelectedRow(); // var2
+                System.out.println(row2);
+
+                String date = (String) jTable1.getValueAt(row, 0);
+                System.out.println(date);
+                try {
+                    jDateChooser1.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                System.out.println(Integer.parseInt((String) jTable1.getValueAt(row, 1))-1);
+                jComboBox3.setSelectedIndex(Integer.parseInt((String) jTable1.getValueAt(row, 1))-1);
+
+                System.out.println((String) jTable1.getValueAt(row, 2));
+                jTextField2.setText((String) jTable1.getValueAt(row, 2));
+                System.out.println("Editing mod");
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -206,14 +221,14 @@ public class TeacherFrame extends javax.swing.JFrame {
             }
         });
         jComboBox6.addActionListener(e -> {
-                String[] studentData = new String[3];
-                String studentNameSurname = (String) jComboBox6.getSelectedItem();
-                studentData[0] = studentNameSurname.split("\\s")[0];
-                studentData[1] = studentNameSurname.split("\\s")[1];
-                studentData[2] = jComboBox4.getSelectedItem() + (String) jComboBox5.getSelectedItem();
-                jTable1.setModel(new DefaultTableModel(
-                        teacherMarksTableDB.getTableData(studentData[0], studentData[1], studentData[2]),
-                        teacherMarksTableDB.getColumns()));
+            String[] studentData = new String[3];
+            String studentNameSurname = (String) jComboBox6.getSelectedItem();
+            studentData[0] = studentNameSurname.split("\\s")[0];
+            studentData[1] = studentNameSurname.split("\\s")[1];
+            studentData[2] = jComboBox4.getSelectedItem() + (String) jComboBox5.getSelectedItem();
+            jTable1.setModel(new DefaultTableModel(
+                    teacherMarksTableDB.getTableData(studentData[0], studentData[1], studentData[2]),
+                    teacherMarksTableDB.getColumns()));
 
         });
 
@@ -263,6 +278,9 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton5.setText("Edit");
+        jButton5.addActionListener(e -> {
+            System.out.println(jTable1.getSelectedRow() );
+        });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 140, 60));
 
         jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
@@ -273,9 +291,62 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton4.setText("Add");
+        jButton4.addActionListener(e -> {
+            if(!teacherLoginDB.isLoggedIn()) {
+                JOptionPane.showMessageDialog(null, "You must log in!");
+
+            } else {
+                String grade = (String) jComboBox1.getSelectedItem();
+                String letter = (String) jComboBox7.getSelectedItem();
+                if(grade == null || grade.equals("") || letter == null || letter.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Class invalid!");
+                    throw new IllegalArgumentException("Class invalid!");
+                }
+                System.out.println(grade + letter);
+
+                String nameAndSurname = (String) jComboBox2.getSelectedItem();
+                if(nameAndSurname == null || nameAndSurname.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Student invalid!");
+                    throw new IllegalArgumentException("Student invalid!");
+                }
+                System.out.println(nameAndSurname);
+
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate());
+                if(date.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Date invalid!");
+                    throw new IllegalArgumentException("Date invalid!");
+                }
+                System.out.println(date);
+
+                int mark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
+                if(jComboBox3.getSelectedItem().equals("Select a mark")) {
+                    JOptionPane.showMessageDialog(null, "Mark invalid!");
+                    throw new IllegalArgumentException("Mark invalid!");
+                }
+                System.out.println(mark);
+                String comment = jTextField2.getText();
+                if(!comment.equals("")) {
+                    System.out.println(comment);
+                }
+                try {
+                    crudMarksDB.addMark(Objects.requireNonNull(nameAndSurname), date, mark, comment, jLabel9.getText());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                jTable1.setModel(new DefaultTableModel(teacherMarksTableDB.getTableData(nameAndSurname.split("\\s")[0],
+                        nameAndSurname.split("\\s")[1], grade+letter),
+                        teacherMarksTableDB.getColumns()));
+
+                jComboBox1.setSelectedIndex(0);
+                jComboBox7.setSelectedIndex(0);
+                jDateChooser1.setDate(null);
+                jComboBox3.setSelectedIndex(0);
+                jTextField2.setText("");
+            }
+        });
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "class", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"}));
 
         jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student" }));
@@ -283,6 +354,9 @@ public class TeacherFrame extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Add Mark");
+
+        jComboBox7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jComboBox7.setModel(new DefaultComboBoxModel<>(new String[] {""}));
 
         jLabel11.setFont(new java.awt.Font("sansserif", 0, 26)); // NOI18N
         jLabel11.setText("Date:");
@@ -294,39 +368,72 @@ public class TeacherFrame extends javax.swing.JFrame {
         jLabel12.setText("Mark:");
 
         jTextField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jTextField2.setText("Comment");
+        jTextField2.setText("");
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
         jDateChooser1.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
+
+        jComboBox1.addActionListener(e -> {
+            try {
+                jComboBox7.setModel(new DefaultComboBoxModel<>(teacherMarksTableDB.getClassLettersByGrade(Integer.parseInt(
+                        (String) Objects.requireNonNull(jComboBox1.getSelectedItem())))));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        jComboBox7.addActionListener(e -> {
+            try {
+                jComboBox2.setModel(new DefaultComboBoxModel<>(teacherMarksTableDB.getStudentsByClassData(jComboBox1.getSelectedItem() +
+                        (String) jComboBox7.getSelectedItem())));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        jComboBox2.addActionListener(e -> {
+            String[] studentData = new String[3];
+            String studentNameSurname = (String) jComboBox2.getSelectedItem();
+            studentData[0] = studentNameSurname.split("\\s")[0];
+            studentData[1] = studentNameSurname.split("\\s")[1];
+            studentData[2] = jComboBox1.getSelectedItem() + (String) jComboBox7.getSelectedItem();
+            jTable1.setModel(new DefaultTableModel(
+                    teacherMarksTableDB.getTableData(studentData[0], studentData[1], studentData[2]),
+                    teacherMarksTableDB.getColumns()));
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51))
                         .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel5Layout.createSequentialGroup()
-                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboBox2, 0, 144, Short.MAX_VALUE))
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                                        .addComponent(jLabel12)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jComboBox3, 0, 174, Short.MAX_VALUE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                                                .addGap(21, 21, 21)
+                                                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(4, 4, 4)
+                                                                                .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(jComboBox2, 0, 144, Short.MAX_VALUE))
+                                                                        .addComponent(jTextField2)
+                                                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                                                                .addComponent(jLabel12)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(jComboBox3, 0, 174, Short.MAX_VALUE))
+                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                                                .addGap(63, 63, 63)
+                                                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(0, 17, Short.MAX_VALUE))
+                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +442,8 @@ public class TeacherFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
@@ -350,7 +458,6 @@ public class TeacherFrame extends javax.swing.JFrame {
                                 .addComponent(jButton4)
                                 .addGap(17, 17, 17))
         );
-
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 310, 380));
 
         jTabbedPane1.addTab("General", jPanel1);
@@ -365,13 +472,13 @@ public class TeacherFrame extends javax.swing.JFrame {
     public void setData(Teacher data) {
         jLabel7.setText(data.getName());
         jLabel8.setText(data.getSurname());
-        jLabel2.setText(data.getSubjectData());
-        jLabel9.setText(data.getPhoneNumber());
+        jLabel2.setText(data.getPhoneNumber());
+        jLabel9.setText(data.getSubjectData());
 
-        jLabel13.setText("Subject: "+ jLabel2.getText());
-        teacherMarksTableDB.setSubject(jLabel2.getText());
+        jLabel13.setText("Subject: "+ jLabel9.getText());
+        teacherMarksTableDB.setSubject(jLabel9.getText());
         System.out.println(teacherMarksTableDB.getSubject());
-
+        teacherLoginDB.setLoggedIn(true);
         jButton1.setText("Logout");
 
     }
@@ -381,6 +488,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         jLabel2.setText("*login to see*");
         jLabel9.setText("*login to see*");
         jLabel13.setText("Subject: ");
+        teacherLoginDB.setLoggedIn(false);
         jButton1.setText("Login");
     }
 //    private void checkIfLoggedIn() throws UnknownHostException, SQLException {
@@ -398,10 +506,10 @@ public class TeacherFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox7;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
@@ -425,10 +533,8 @@ public class TeacherFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTree jTree1;

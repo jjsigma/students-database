@@ -8,6 +8,7 @@ import java.sql.*;
 public class TeacherLoginDB {
     private final Connection connection;
     private final Statement statement;
+    private boolean isLoggedIn = false;
 
     private static final String url = "jdbc:mysql://localhost:3306/student_database_schema",
             user = "root",
@@ -62,5 +63,13 @@ public class TeacherLoginDB {
             return resultSet.getInt("id");
         }
         return -1;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 }
