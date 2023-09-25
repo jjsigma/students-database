@@ -176,24 +176,22 @@ public class TeacherFrame extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = jTable1.rowAtPoint(e.getPoint()); // var1
-                System.out.println(row);
-                int row2 = jTable1.getSelectedRow(); // var2
-                System.out.println(row2);
 
                 String date = (String) jTable1.getValueAt(row, 0);
-                System.out.println(date);
                 try {
                     jDateChooser1.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
                 } catch (ParseException ex) {
                     throw new RuntimeException(ex);
                 }
-
-                System.out.println(Integer.parseInt((String) jTable1.getValueAt(row, 1))-1);
                 jComboBox3.setSelectedIndex(Integer.parseInt((String) jTable1.getValueAt(row, 1))-1);
 
-                System.out.println((String) jTable1.getValueAt(row, 2));
                 jTextField2.setText((String) jTable1.getValueAt(row, 2));
                 System.out.println("Editing mod");
+
+                String oldDate = date;
+                int oldMark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
+                String oldComment = jTextField2.getText();
+                crudMarksDB.setOldData(oldDate, oldMark, oldComment);
             }
         });
         jScrollPane2.setViewportView(jTable1);
@@ -211,6 +209,7 @@ public class TeacherFrame extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            jComboBox1.setSelectedIndex(jComboBox4.getSelectedIndex());
         });
         jComboBox5.addActionListener(e -> {
             try {
@@ -219,6 +218,7 @@ public class TeacherFrame extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            jComboBox7.setSelectedIndex(jComboBox5.getSelectedIndex());
         });
         jComboBox6.addActionListener(e -> {
             String[] studentData = new String[3];
@@ -229,7 +229,7 @@ public class TeacherFrame extends javax.swing.JFrame {
             jTable1.setModel(new DefaultTableModel(
                     teacherMarksTableDB.getTableData(studentData[0], studentData[1], studentData[2]),
                     teacherMarksTableDB.getColumns()));
-
+            jComboBox2.setSelectedIndex(jComboBox6.getSelectedIndex());
         });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -279,12 +279,43 @@ public class TeacherFrame extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton5.setText("Edit");
         jButton5.addActionListener(e -> {
-            System.out.println(jTable1.getSelectedRow() );
+            String nameAndSurname = (String) Objects.requireNonNull(jComboBox2.getSelectedItem());
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate());
+            int mark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
+            String classData = (String) jComboBox1.getSelectedItem() + jComboBox7.getSelectedItem();
+            try {
+                crudMarksDB.updateMark(nameAndSurname, date, mark, jTextField2.getText(), jLabel9.getText());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            jTable1.setModel(new DefaultTableModel(teacherMarksTableDB.getTableData(nameAndSurname.split("\\s")[0],
+                    nameAndSurname.split("\\s")[1], classData),
+                    teacherMarksTableDB.getColumns()));
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 140, 60));
 
         jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton6.setText("Delete");
+        jButton6.addActionListener(e -> {
+            String nameAndSurname = (String) Objects.requireNonNull(jComboBox2.getSelectedItem());
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate());
+            int mark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
+            String comment = jTextField2.getText();
+            String classData = (String) jComboBox1.getSelectedItem() + jComboBox7.getSelectedItem();
+
+            int choice = JOptionPane.showConfirmDialog(null, "Do you want to delete this mark?");
+            if (choice == JOptionPane.YES_OPTION) {
+                try {
+                    crudMarksDB.deleteMark(nameAndSurname, date, mark, comment, jLabel9.getText());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                JOptionPane.showMessageDialog(null, "Mark deleted!");
+                jTable1.setModel(new DefaultTableModel(teacherMarksTableDB.getTableData(nameAndSurname.split("\\s")[0],
+                        nameAndSurname.split("\\s")[1], classData),
+                        teacherMarksTableDB.getColumns()));
+            }
+        });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 410, 140, 60));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 8));
@@ -329,19 +360,20 @@ public class TeacherFrame extends javax.swing.JFrame {
                     System.out.println(comment);
                 }
                 try {
-                    crudMarksDB.addMark(Objects.requireNonNull(nameAndSurname), date, mark, comment, jLabel9.getText());
+                   boolean isSucceed = crudMarksDB.addMark(Objects.requireNonNull(nameAndSurname), date, mark, comment, jLabel9.getText());
+                   if(!isSucceed) {
+                       JOptionPane.showMessageDialog(null, "Mark already exists!");
+                   } else {
+                       jTable1.setModel(new DefaultTableModel(teacherMarksTableDB.getTableData(nameAndSurname.split("\\s")[0],
+                               nameAndSurname.split("\\s")[1], grade+letter),
+                               teacherMarksTableDB.getColumns()));
+                       jDateChooser1.setDate(null);
+                       jComboBox3.setSelectedIndex(0);
+                       jTextField2.setText("");
+                   }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                jTable1.setModel(new DefaultTableModel(teacherMarksTableDB.getTableData(nameAndSurname.split("\\s")[0],
-                        nameAndSurname.split("\\s")[1], grade+letter),
-                        teacherMarksTableDB.getColumns()));
-
-                jComboBox1.setSelectedIndex(0);
-                jComboBox7.setSelectedIndex(0);
-                jDateChooser1.setDate(null);
-                jComboBox3.setSelectedIndex(0);
-                jTextField2.setText("");
             }
         });
 
@@ -380,6 +412,7 @@ public class TeacherFrame extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            jComboBox4.setSelectedIndex(jComboBox1.getSelectedIndex());
         });
         jComboBox7.addActionListener(e -> {
             try {
@@ -388,16 +421,18 @@ public class TeacherFrame extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            jComboBox5.setSelectedIndex(jComboBox7.getSelectedIndex());
         });
         jComboBox2.addActionListener(e -> {
             String[] studentData = new String[3];
             String studentNameSurname = (String) jComboBox2.getSelectedItem();
-            studentData[0] = studentNameSurname.split("\\s")[0];
+            studentData[0] = Objects.requireNonNull(studentNameSurname).split("\\s")[0];
             studentData[1] = studentNameSurname.split("\\s")[1];
             studentData[2] = jComboBox1.getSelectedItem() + (String) jComboBox7.getSelectedItem();
             jTable1.setModel(new DefaultTableModel(
                     teacherMarksTableDB.getTableData(studentData[0], studentData[1], studentData[2]),
                     teacherMarksTableDB.getColumns()));
+            jComboBox6.setSelectedIndex(jComboBox2.getSelectedIndex());
         });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
