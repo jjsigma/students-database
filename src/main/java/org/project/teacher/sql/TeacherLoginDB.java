@@ -8,7 +8,7 @@ import java.sql.*;
 public class TeacherLoginDB {
     private final Connection connection;
     private final Statement statement;
-    private boolean isLoggedIn = false;
+    private boolean isLoggedIn;
 
     private static final String url = "jdbc:mysql://localhost:3306/student_database_schema",
             user = "root",
@@ -63,6 +63,18 @@ public class TeacherLoginDB {
             return resultSet.getInt("id");
         }
         return -1;
+    }
+    public int getLoggedInTeacherID(String ip) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(String.format("SELECT teacher_id FROM logged_in_teachers WHERE ip = '%s'", ip));
+        if(!resultSet.next()) return -1;
+        else return resultSet.getInt(1);
+    }
+    public void addIPToTeachersDB(String ip, int userID) throws SQLException {
+        if(userID == -1) throw new IllegalArgumentException("ID is illegal to add in IP database!");
+        statement.executeUpdate(String.format("INSERT INTO logged_in_teachers (ip, teacher_id) VALUES ('%s', %d)", ip, userID));
+    }
+    public void deleteTeacherByID(int id) throws SQLException {
+        statement.executeUpdate("DELETE FROM logged_in_teachers WHERE teacher_id = "+id);
     }
 
     public boolean isLoggedIn() {

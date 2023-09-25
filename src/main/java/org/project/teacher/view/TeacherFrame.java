@@ -4,16 +4,17 @@ import org.project.teacher.sql.CRUDMarksDB;
 import org.project.teacher.sql.TeacherLoginDB;
 import org.project.teacher.Teacher;
 import org.project.teacher.sql.TeacherMarksTableDB;
+import org.project.util.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -30,10 +31,14 @@ public class TeacherFrame extends javax.swing.JFrame {
         setResizable(false);
         initComponents();
         setVisible(true);
+        try {
+            checkIfLoggedIn();
+        } catch (UnknownHostException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void initComponents() {
-
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -106,9 +111,9 @@ public class TeacherFrame extends javax.swing.JFrame {
         jButton1.setText("Login");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(e -> {
-//            if(jButton1.getText().equals("Login") && teacherLoginDB.isLoggedIn()) {
-//                JOptionPane.showMessageDialog(null, "Already in account!");
-//            }
+            if(jButton1.getText().equals("Login") && teacherLoginDB.isLoggedIn()) {
+                JOptionPane.showMessageDialog(null, "Already in account!");
+            }
             if(jButton1.getText().equals("Login")) {
                 new TeacherLoginGUI(this).setVisible(true);
             } else {
@@ -116,14 +121,14 @@ public class TeacherFrame extends javax.swing.JFrame {
                 int confirm = JOptionPane.showConfirmDialog(null, "Do you want to log out?");
                 if (confirm == JOptionPane.YES_OPTION) {
                     setLogoutData();
-//                    try {
-//                        //deleting user IP from system
-//                        String ip = Util.getIPAddress();
-//                        int userID = teacherLoginDB.getLoggedInUserID(ip);
-//                        teacherLoginDB.deleteUserByID(userID);
-//                    } catch (SQLException | UnknownHostException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
+                    try {
+                        //deleting user IP from system
+                        String ip = Util.getIPAddress();
+                        int userID = teacherLoginDB.getLoggedInTeacherID(ip);
+                        teacherLoginDB.deleteTeacherByID(userID);
+                    } catch (SQLException | UnknownHostException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     JOptionPane.showMessageDialog(null, "You logged out!");
                 }
             }
@@ -526,15 +531,16 @@ public class TeacherFrame extends javax.swing.JFrame {
         teacherLoginDB.setLoggedIn(false);
         jButton1.setText("Login");
     }
-//    private void checkIfLoggedIn() throws UnknownHostException, SQLException {
-//        String ip = Util.getIPAddress();
-//        int userID = loginDB.getLoggedInUserID(ip);
-//        if(userID != -1) {
-//            Student user = loginDB.getStudentByID(userID);
-//            user.setClassData(loginDB.getClassData(user));
-//            setData(user);
-//        }
-//    }
+    private void checkIfLoggedIn() throws UnknownHostException, SQLException {
+        String ip = Util.getIPAddress();
+        int userID = teacherLoginDB.getLoggedInTeacherID(ip);
+        if(userID != -1) {
+            Teacher user = teacherLoginDB.getTeacherByID(userID);
+            user.setSubjectData(teacherLoginDB.getSubjectData(user));
+            setData(user);
+            JOptionPane.showMessageDialog(null, "Logged in!");
+        }
+    }
 
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;

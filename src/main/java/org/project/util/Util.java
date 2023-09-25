@@ -48,10 +48,10 @@ public class Util {
         close();
     }
     public static boolean isNameValid(String name) {
-        return Pattern.compile("[А-Я][а-я]+").matcher(name).matches();
+        return Pattern.compile("[A-Z][a-z]+").matcher(name).matches();
     }
     public static boolean isSurnameValid(String surname) {
-        return Pattern.compile("[А-Я][а-я]+").matcher(surname).matches();
+        return Pattern.compile("[A-Z][a-z]+").matcher(surname).matches();
     }
     public static boolean isPhoneNumberValid(String phoneNum) {
         Pattern pattern = Pattern.compile("\\+7\\d{10}");

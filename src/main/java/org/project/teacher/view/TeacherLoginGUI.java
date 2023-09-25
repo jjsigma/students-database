@@ -2,8 +2,10 @@ package org.project.teacher.view;
 
 import org.project.teacher.sql.TeacherLoginDB;
 import org.project.teacher.Teacher;
+import org.project.util.Util;
 
 import javax.swing.*;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 
 /**
@@ -78,12 +80,13 @@ public class TeacherLoginGUI extends javax.swing.JFrame {
                     throw new IllegalArgumentException("Account doesn't exist!");
                 }
                 int id = teacherLoginDB.getIDByTeacherData(new Teacher(name, surname, password));
-
                 Teacher data = teacherLoginDB.getTeacherByID(id);
+                teacherLoginDB.addIPToTeachersDB(Util.getIPAddress(), id);
+                teacherLoginDB.setLoggedIn(true);
                 data.setSubjectData(teacherLoginDB.getSubjectData(data));
                 setData(data);
                 JOptionPane.showMessageDialog(null, "Logged in successfully!");
-            } catch (SQLException ex) {
+            } catch (SQLException | UnknownHostException ex) {
                 throw new RuntimeException(ex);
             }
         });
