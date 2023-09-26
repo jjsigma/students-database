@@ -56,7 +56,6 @@ public class CRUDMarksDB {
         statement.executeUpdate(String.format("UPDATE marks SET date = '%s', value = %d, comment = '%s' " +
                         "WHERE user_id = %d AND date = '%s' AND value = '%s' AND comment = '%s' AND subject_id = %d",
                 date, mark, comment, userID, oldDate, oldMark, oldComment, subjectID));
-        System.out.println("Editing complete");
     }
     public void deleteMark(String nameSurname, String date, int mark, String comment, String subject) throws SQLException {
         int subjectID = teacherMarksTableDB.getSubjectID(subject);

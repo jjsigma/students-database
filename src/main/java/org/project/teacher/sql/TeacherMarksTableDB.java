@@ -37,10 +37,8 @@ public class TeacherMarksTableDB {
         int i = 0;
         while (resultSet1.next()) {
             subjects[i] = resultSet1.getString("letter");
-            System.out.println(subjects[i]);
             i++;
         }
-        System.out.println("----");
         return subjects;
     }
     public String[] getStudentsByClassData(String data) throws SQLException{
@@ -52,7 +50,6 @@ public class TeacherMarksTableDB {
         if(resultSet.next()) {
             all = resultSet.getInt(1);
         }
-        System.out.println(all);
         String[] students = new String[all];
         ResultSet resultSet1 = statement.executeQuery("SELECT * FROM students WHERE class_id = " + classID);
         int i =0;
@@ -89,7 +86,6 @@ public class TeacherMarksTableDB {
                 tableData[i][0] = String.valueOf(resultSet.getDate("date"));
                 tableData[i][1] = String.valueOf(resultSet.getInt("value"));
                 tableData[i][2] = resultSet.getString("comment");
-                System.out.println(tableData[i][0] +" "+tableData[i][1] +" "+tableData[i][2]);
                 i++;
             }
         } catch(SQLException w) {

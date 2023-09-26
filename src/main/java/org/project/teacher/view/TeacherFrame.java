@@ -11,11 +11,18 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterJob;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
+import java.awt.print.PrinterException;
+
+import static java.awt.Font.PLAIN;
+
 
 /**
  *
@@ -25,6 +32,7 @@ public class TeacherFrame extends javax.swing.JFrame {
     private final TeacherMarksTableDB teacherMarksTableDB = new TeacherMarksTableDB();
     private final TeacherLoginDB teacherLoginDB = new TeacherLoginDB();
     private final CRUDMarksDB crudMarksDB = new CRUDMarksDB();
+    private final PrinterJob printerJob = PrinterJob.getPrinterJob();
 
     public TeacherFrame() {
         setTitle("Teacher");
@@ -155,7 +163,7 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 8));
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 18)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Segoe UI", PLAIN, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 teacherMarksTableDB.getNullData(),
                 teacherMarksTableDB.getColumns()
@@ -191,7 +199,6 @@ public class TeacherFrame extends javax.swing.JFrame {
                 jComboBox3.setSelectedIndex(Integer.parseInt((String) jTable1.getValueAt(row, 1))-1);
 
                 jTextField2.setText((String) jTable1.getValueAt(row, 2));
-                System.out.println("Editing mod");
 
                 String oldDate = date;
                 int oldMark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
@@ -276,8 +283,55 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton3.setText("Print");
-        jButton3.addActionListener(e -> {
+        printerJob.setPrintable((graphics, pageFormat, pageIndex) -> {
+            if (pageIndex > 0) {
+                return Printable.NO_SUCH_PAGE;
+            }
+            Graphics2D g2d = (Graphics2D)graphics;
+            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
+            String studentData = (String) jComboBox6.getSelectedItem();
+            graphics.drawString(Objects.requireNonNull(studentData), 10, 10);
+            graphics.drawString(jLabel9.getText(), 150,10);
+
+            graphics.drawString("Date", 10, 50);
+            graphics.drawString("|", 110, 50);
+            graphics.drawString("Mark", 120, 50);
+            graphics.drawString("|", 220, 50);
+            graphics.drawString("Comment", 230, 50);
+
+            for(int i = 10; i <= 280; i+=10) {
+                graphics.drawString("__", i, 75);
+            }
+
+            String[][] tableData = teacherMarksTableDB.getTableData(studentData.split("\\s")[0], studentData.split("\\s")[1],
+                    (String) jComboBox1.getSelectedItem() +jComboBox7.getSelectedItem());
+
+            for(int i = 0; i < tableData.length; i++) {
+                graphics.drawString(tableData[i][0], 10, (i+2)*50);
+                graphics.drawString("|", 110, (i+2)*50);
+
+                graphics.drawString(tableData[i][1], 120, (i+2)*50);
+                graphics.drawString("|", 220, (i+2)*50);
+
+                if(tableData[i][2] == null || tableData[i][2].equals("")) {
+                    graphics.drawString("---", 230, (i+2) * 50);
+                } else {
+                    graphics.drawString(tableData[i][2], 230, (i+2) * 50);
+                }
+            }
+            return Printable.PAGE_EXISTS;
+        });
+        jButton3.addActionListener(e -> {
+            if(!teacherLoginDB.isLoggedIn()) {
+            JOptionPane.showMessageDialog(null, "Log in account to use it!");
+            } else {
+                try {
+                    printerJob.print();
+                } catch (PrinterException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 410, 140, 60));
 
@@ -338,32 +392,25 @@ public class TeacherFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Class invalid!");
                     throw new IllegalArgumentException("Class invalid!");
                 }
-                System.out.println(grade + letter);
 
                 String nameAndSurname = (String) jComboBox2.getSelectedItem();
                 if(nameAndSurname == null || nameAndSurname.equals("")) {
                     JOptionPane.showMessageDialog(null, "Student invalid!");
                     throw new IllegalArgumentException("Student invalid!");
                 }
-                System.out.println(nameAndSurname);
 
                 String date = new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate());
                 if(date.equals("")) {
                     JOptionPane.showMessageDialog(null, "Date invalid!");
                     throw new IllegalArgumentException("Date invalid!");
                 }
-                System.out.println(date);
 
                 int mark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
                 if(jComboBox3.getSelectedItem().equals("Select a mark")) {
                     JOptionPane.showMessageDialog(null, "Mark invalid!");
                     throw new IllegalArgumentException("Mark invalid!");
                 }
-                System.out.println(mark);
                 String comment = jTextField2.getText();
-                if(!comment.equals("")) {
-                    System.out.println(comment);
-                }
                 try {
                    boolean isSucceed = crudMarksDB.addMark(Objects.requireNonNull(nameAndSurname), date, mark, comment, jLabel9.getText());
                    if(!isSucceed) {
@@ -517,7 +564,6 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jLabel13.setText("Subject: "+ jLabel9.getText());
         teacherMarksTableDB.setSubject(jLabel9.getText());
-        System.out.println(teacherMarksTableDB.getSubject());
         teacherLoginDB.setLoggedIn(true);
         jButton1.setText("Logout");
 
