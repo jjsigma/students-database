@@ -107,23 +107,10 @@ public class StudentFrame extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0), 8));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton3.setText("Print");
+        jButton3.setText("Exit");
         jButton3.setFont(new java.awt.Font("Segoe UI", PLAIN, 26));
-
-        MarksPrinter printer = new MarksPrinter();
-        printerJob.setPrintable(printer);
         jButton3.addActionListener(e -> {
-            if(!loginDB.isLoggedIn()) {
-                JOptionPane.showMessageDialog(null, "Log in account to use it!");
-            } else {
-                printer.setData(jLabel43.getText(), jLabel44.getText(), (String) jComboBox2.getSelectedItem(), jLabel47.getText());
-                printer.setTableData(marksTableDB.getTableData());
-                try {
-                    printerJob.print();
-                } catch (PrinterException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
+            System.exit(0);
         });
         jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 130, 60));
 
@@ -136,7 +123,23 @@ public class StudentFrame extends javax.swing.JFrame {
         jButton6.setText("tghth");
         jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 130, 60));
 
-        jButton7.setText("fefe");
+        jButton7.setText("Print");
+        jButton7.setFont(new java.awt.Font("Segoe UI", PLAIN, 26));
+        MarksPrinter printer = new MarksPrinter();
+        printerJob.setPrintable(printer);
+        jButton7.addActionListener(e -> {
+            if(!loginDB.isLoggedIn()) {
+                JOptionPane.showMessageDialog(null, "Log in account to use it!");
+            } else {
+                printer.setData(jLabel43.getText(), jLabel44.getText(), (String) jComboBox2.getSelectedItem(), jLabel47.getText());
+                printer.setTableData(marksTableDB.getTableData());
+                try {
+                    printerJob.print();
+                } catch (PrinterException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 130, 60));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 540, 830, 130));
@@ -171,11 +174,11 @@ public class StudentFrame extends javax.swing.JFrame {
         jPanel9.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 170, 40));
 
         jLabel17.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
-        jLabel17.setText("Gender");
+        jLabel17.setText("Gender:");
         jPanel9.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 120, 40));
 
         jLabel18.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
-        jLabel18.setText("Class");
+        jLabel18.setText("Class:");
         jPanel9.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 120, 40));
 
         jLabel20.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
