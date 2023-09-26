@@ -6,13 +6,18 @@ import org.project.student.sql.MarksTableDB;
 import org.project.util.MarksPrinter;
 import org.project.util.Util;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static java.awt.Font.PLAIN;
 
@@ -92,6 +97,7 @@ public class StudentFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student");
+        setIconImage(new ImageIcon("img/student-icon.jpg").getImage());
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(200, 200, 1000, 800));
