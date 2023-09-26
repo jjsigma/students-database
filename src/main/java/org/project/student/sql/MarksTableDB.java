@@ -39,12 +39,10 @@ public class MarksTableDB {
                     studentID, getSubjectIDByName(subject)));
             int i = 0;
             tableData = new String[count][3];
-            System.out.println("--------"+subject+"--------");
             while (resultSet.next()) {
                 tableData[i][0] = String.valueOf(resultSet.getDate("date"));
                 tableData[i][1] = String.valueOf(resultSet.getInt("value"));
                 tableData[i][2] = resultSet.getString("comment");
-                System.out.println(tableData[i][0] +" "+tableData[i][1] +" "+tableData[i][2]);
                 i++;
             }
         } catch(SQLException w) {

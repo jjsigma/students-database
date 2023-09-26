@@ -4,15 +4,14 @@ import org.project.teacher.sql.CRUDMarksDB;
 import org.project.teacher.sql.TeacherLoginDB;
 import org.project.teacher.Teacher;
 import org.project.teacher.sql.TeacherMarksTableDB;
+import org.project.util.MarksPrinter;
 import org.project.util.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -56,6 +55,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        addButton = new JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -72,7 +72,6 @@ public class TeacherFrame extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -82,6 +81,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
+        jButton8 = new JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -283,49 +283,20 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton3.setText("Print");
-        printerJob.setPrintable((graphics, pageFormat, pageIndex) -> {
-            if (pageIndex > 0) {
-                return Printable.NO_SUCH_PAGE;
-            }
-            Graphics2D g2d = (Graphics2D)graphics;
-            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
-            String studentData = (String) jComboBox6.getSelectedItem();
-            graphics.drawString(Objects.requireNonNull(studentData), 10, 10);
-            graphics.drawString(jLabel9.getText(), 150,10);
+        MarksPrinter printer = new MarksPrinter();
+        printerJob.setPrintable(printer);
 
-            graphics.drawString("Date", 10, 50);
-            graphics.drawString("|", 110, 50);
-            graphics.drawString("Mark", 120, 50);
-            graphics.drawString("|", 220, 50);
-            graphics.drawString("Comment", 230, 50);
-
-            for(int i = 10; i <= 280; i+=10) {
-                graphics.drawString("__", i, 75);
-            }
-
-            String[][] tableData = teacherMarksTableDB.getTableData(studentData.split("\\s")[0], studentData.split("\\s")[1],
-                    (String) jComboBox1.getSelectedItem() +jComboBox7.getSelectedItem());
-
-            for(int i = 0; i < tableData.length; i++) {
-                graphics.drawString(tableData[i][0], 10, (i+2)*50);
-                graphics.drawString("|", 110, (i+2)*50);
-
-                graphics.drawString(tableData[i][1], 120, (i+2)*50);
-                graphics.drawString("|", 220, (i+2)*50);
-
-                if(tableData[i][2] == null || tableData[i][2].equals("")) {
-                    graphics.drawString("---", 230, (i+2) * 50);
-                } else {
-                    graphics.drawString(tableData[i][2], 230, (i+2) * 50);
-                }
-            }
-            return Printable.PAGE_EXISTS;
-        });
         jButton3.addActionListener(e -> {
             if(!teacherLoginDB.isLoggedIn()) {
             JOptionPane.showMessageDialog(null, "Log in account to use it!");
             } else {
+                String name = ((String) jComboBox6.getSelectedItem()).split("\\s")[0];
+                String surname = ((String) jComboBox6.getSelectedItem()).split("\\s")[1];
+                String classData = (String) jComboBox1.getSelectedItem() +jComboBox7.getSelectedItem();
+
+                printer.setData(name, surname, jLabel9.getText(), classData);
+                printer.setTableData(teacherMarksTableDB.getTableData(name, surname, classData));
                 try {
                     printerJob.print();
                 } catch (PrinterException ex) {
@@ -333,7 +304,7 @@ public class TeacherFrame extends javax.swing.JFrame {
                 }
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 410, 140, 60));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 410, 140, 60));
 
         jButton5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton5.setText("Edit");
@@ -351,7 +322,7 @@ public class TeacherFrame extends javax.swing.JFrame {
                     nameAndSurname.split("\\s")[1], classData),
                     teacherMarksTableDB.getColumns()));
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 140, 60));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, 140, 60));
 
         jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jButton6.setText("Delete");
@@ -375,13 +346,13 @@ public class TeacherFrame extends javax.swing.JFrame {
                         teacherMarksTableDB.getColumns()));
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 410, 140, 60));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 140, 60));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 8));
 
-        jButton4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jButton4.setText("Add");
-        jButton4.addActionListener(e -> {
+        addButton.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        addButton.setText("Add");
+        addButton.addActionListener(e -> {
             if(!teacherLoginDB.isLoggedIn()) {
                 JOptionPane.showMessageDialog(null, "You must log in!");
 
@@ -428,6 +399,7 @@ public class TeacherFrame extends javax.swing.JFrame {
                 }
             }
         });
+        jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 140, 60));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"}));
@@ -515,7 +487,7 @@ public class TeacherFrame extends javax.swing.JFrame {
                                                                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                                         .addGroup(jPanel5Layout.createSequentialGroup()
                                                                 .addGap(63, 63, 63)
-                                                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        ))
                                                 .addGap(0, 17, Short.MAX_VALUE))
                                         .addGroup(jPanel5Layout.createSequentialGroup()
                                                 .addContainerGap()
@@ -542,9 +514,15 @@ public class TeacherFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4)
                                 .addGap(17, 17, 17))
         );
+
+        jButton8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jButton8.setText("Exit");
+        jButton8.addActionListener(e -> {
+            System.exit(0);
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 410, 140, 60));
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 310, 380));
 
         jTabbedPane1.addTab("General", jPanel1);
@@ -590,9 +568,10 @@ public class TeacherFrame extends javax.swing.JFrame {
 
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private JButton jButton8;
+    private JButton addButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

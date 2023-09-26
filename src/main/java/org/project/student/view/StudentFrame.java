@@ -3,10 +3,13 @@ package org.project.student.view;
 import org.project.student.Student;
 import org.project.student.sql.LoginDB;
 import org.project.student.sql.MarksTableDB;
+import org.project.util.MarksPrinter;
 import org.project.util.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -21,6 +24,7 @@ public class StudentFrame extends javax.swing.JFrame {
     private final MarksTableDB marksTableDB = new MarksTableDB();
     private final LoginDB loginDB = new LoginDB();
     private AvgMarkCounter avgMarkCounter;
+    private PrinterJob printerJob = PrinterJob.getPrinterJob();
 
     public StudentFrame() {
         setResizable(false);
@@ -105,6 +109,22 @@ public class StudentFrame extends javax.swing.JFrame {
 
         jButton3.setText("Print");
         jButton3.setFont(new java.awt.Font("Segoe UI", PLAIN, 26));
+
+        MarksPrinter printer = new MarksPrinter();
+        printerJob.setPrintable(printer);
+        jButton3.addActionListener(e -> {
+            if(!loginDB.isLoggedIn()) {
+                JOptionPane.showMessageDialog(null, "Log in account to use it!");
+            } else {
+                printer.setData(jLabel43.getText(), jLabel44.getText(), (String) jComboBox2.getSelectedItem(), jLabel47.getText());
+                printer.setTableData(marksTableDB.getTableData());
+                try {
+                    printerJob.print();
+                } catch (PrinterException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 130, 60));
 
         jButton4.setText("jButton3");
