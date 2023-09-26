@@ -1,5 +1,6 @@
 package org.project.teacher.view;
 
+import com.toedter.calendar.JDateChooser;
 import org.project.teacher.sql.CRUDMarksDB;
 import org.project.teacher.sql.TeacherLoginDB;
 import org.project.teacher.Teacher;
@@ -9,7 +10,6 @@ import org.project.util.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PrinterJob;
@@ -46,41 +46,41 @@ public class TeacherFrame extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jTabbedPane1 = new JTabbedPane();
+        jPanel1 = new JPanel();
+        jPanel4 = new JPanel();
+        jLabel1 = new JLabel();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        jLabel5 = new JLabel();
+        jLabel6 = new JLabel();
+        jButton1 = new JButton();
         addButton = new JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new JLabel();
+        jLabel7 = new JLabel();
+        jLabel8 = new JLabel();
+        jLabel9 = new JLabel();
+        jPanel3 = new JPanel();
+        jScrollPane2 = new JScrollPane();
+        jTable1 = new JTable();
+        jLabel13 = new JLabel();
+        jComboBox4 = new JComboBox<>();
+        jComboBox5 = new JComboBox<>();
+        jComboBox6 = new JComboBox<>();
+        jComboBox7 = new JComboBox<>();
+        jButton3 =new JButton();
+        jButton5 = new JButton();
+        jButton6 = new JButton();
+        jPanel5 = new JPanel();
+        jComboBox1 = new JComboBox<>();
+        jComboBox2 = new JComboBox<>();
+        jLabel10 = new JLabel();
+        jLabel11 = new JLabel();
+        jComboBox3 = new JComboBox<>();
+        jLabel12 = new JLabel();
+        jTextField2 = new JTextField();
+        jDateChooser1 = new JDateChooser();
+        jPanel2 = new JPanel();
         jButton8 = new JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,35 +88,35 @@ public class TeacherFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 8));
-        jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTabbedPane1.setFont(new java.awt.Font("Segoe UI", PLAIN, 18)); // NOI18N
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 8));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", PLAIN, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Info");
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel3.setText("Name:");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 110, 50));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel4.setText("Surname:");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 110, 50));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel5.setText("Subject:");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 110, 50));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel6.setText("Phone:");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 110, 50));
 
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 0, 45)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Yu Gothic UI", PLAIN, 45)); // NOI18N
         jButton1.setText("Login");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(e -> {
@@ -144,19 +144,19 @@ public class TeacherFrame extends javax.swing.JFrame {
         });
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 190, 60));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel2.setText("*login to see*");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 170, 50));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel7.setText("*login to see*");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 170, 50));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel8.setText("*login to see*");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 170, 50));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", PLAIN, 24)); // NOI18N
         jLabel9.setText("*login to see*");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 170, 50));
 
@@ -167,29 +167,13 @@ public class TeacherFrame extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Segoe UI", PLAIN, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 teacherMarksTableDB.getNullData(),
-                teacherMarksTableDB.getColumns()
-        ) {
-            Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                    false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+                teacherMarksTableDB.getColumns()));
         jTable1.setDefaultEditor(Object.class, null);
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int row = jTable1.rowAtPoint(e.getPoint()); // var1
+                int row = jTable1.rowAtPoint(e.getPoint());
 
                 String date = (String) jTable1.getValueAt(row, 0);
                 try {
@@ -201,15 +185,14 @@ public class TeacherFrame extends javax.swing.JFrame {
 
                 jTextField2.setText((String) jTable1.getValueAt(row, 2));
 
-                String oldDate = date;
                 int oldMark = Integer.parseInt((String) Objects.requireNonNull(jComboBox3.getSelectedItem()));
                 String oldComment = jTextField2.getText();
-                crudMarksDB.setOldData(oldDate, oldMark, oldComment);
+                crudMarksDB.setOldData(date, oldMark, oldComment);
             }
         });
         jScrollPane2.setViewportView(jTable1);
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Segoe UI", PLAIN, 18)); // NOI18N
         jLabel13.setText("Subject: ");
 
         jComboBox4.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"}));
@@ -236,7 +219,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         jComboBox6.addActionListener(e -> {
             String[] studentData = new String[3];
             String studentNameSurname = (String) jComboBox6.getSelectedItem();
-            studentData[0] = studentNameSurname.split("\\s")[0];
+            studentData[0] = Objects.requireNonNull(studentNameSurname).split("\\s")[0];
             studentData[1] = studentNameSurname.split("\\s")[1];
             studentData[2] = jComboBox4.getSelectedItem() + (String) jComboBox5.getSelectedItem();
             jTable1.setModel(new DefaultTableModel(
@@ -282,7 +265,7 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 480, 380));
 
-        jButton3.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jButton3.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jButton3.setText("Print");
 
         MarksPrinter printer = new MarksPrinter();
@@ -292,7 +275,7 @@ public class TeacherFrame extends javax.swing.JFrame {
             if(!teacherLoginDB.isLoggedIn()) {
             JOptionPane.showMessageDialog(null, "Log in account to use it!");
             } else {
-                String name = ((String) jComboBox6.getSelectedItem()).split("\\s")[0];
+                String name = ((String) Objects.requireNonNull(jComboBox6.getSelectedItem())).split("\\s")[0];
                 String surname = ((String) jComboBox6.getSelectedItem()).split("\\s")[1];
                 String classData = (String) jComboBox1.getSelectedItem() +jComboBox7.getSelectedItem();
 
@@ -307,7 +290,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 410, 140, 60));
 
-        jButton5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jButton5.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jButton5.setText("Edit");
         jButton5.addActionListener(e -> {
             String nameAndSurname = (String) Objects.requireNonNull(jComboBox2.getSelectedItem());
@@ -325,7 +308,7 @@ public class TeacherFrame extends javax.swing.JFrame {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, 140, 60));
 
-        jButton6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jButton6.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jButton6.setText("Delete");
         jButton6.addActionListener(e -> {
             String nameAndSurname = (String) Objects.requireNonNull(jComboBox2.getSelectedItem());
@@ -351,7 +334,7 @@ public class TeacherFrame extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204), 8));
 
-        addButton.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        addButton.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         addButton.setText("Add");
         addButton.addActionListener(e -> {
             if(!teacherLoginDB.isLoggedIn()) {
@@ -402,33 +385,33 @@ public class TeacherFrame extends javax.swing.JFrame {
         });
         jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 410, 140, 60));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", PLAIN, 20)); // NOI18N
         jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"}));
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jComboBox2.setFont(new java.awt.Font("Segoe UI", PLAIN, 20)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student" }));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", PLAIN, 36)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Add Mark");
 
-        jComboBox7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jComboBox7.setFont(new java.awt.Font("Segoe UI", PLAIN, 20)); // NOI18N
         jComboBox7.setModel(new DefaultComboBoxModel<>(new String[] {""}));
 
-        jLabel11.setFont(new java.awt.Font("sansserif", 0, 26)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("sansserif", PLAIN, 26)); // NOI18N
         jLabel11.setText("Date:");
 
-        jComboBox3.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
+        jComboBox3.setFont(new java.awt.Font("sansserif", PLAIN, 20)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a mark", "2", "3", "4", "5" }));
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 0, 26)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("sansserif", PLAIN, 26)); // NOI18N
         jLabel12.setText("Mark:");
 
-        jTextField2.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jTextField2.setText("");
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jDateChooser1.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
+        jDateChooser1.setFont(new java.awt.Font("sansserif", PLAIN, 20)); // NOI18N
 
         jComboBox1.addActionListener(e -> {
             try {
@@ -518,7 +501,7 @@ public class TeacherFrame extends javax.swing.JFrame {
                                 .addGap(17, 17, 17))
         );
 
-        jButton8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jButton8.setFont(new java.awt.Font("sansserif", PLAIN, 24)); // NOI18N
         jButton8.setText("Exit");
         jButton8.addActionListener(e -> {
             System.exit(0);

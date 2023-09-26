@@ -11,7 +11,7 @@ public class Main {
         int choice = JOptionPane.showConfirmDialog(null, "Yes: student\nNo: teacher");
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch(Exception ignored){}
+        } catch (Exception ignored) {}
         if(choice == JOptionPane.YES_OPTION) {
             SwingUtilities.invokeLater(StudentFrame::new);
         } else if(choice == JOptionPane.NO_OPTION) {

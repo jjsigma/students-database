@@ -6,18 +6,13 @@ import org.project.student.sql.MarksTableDB;
 import org.project.util.MarksPrinter;
 import org.project.util.Util;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Objects;
 
 import static java.awt.Font.PLAIN;
 
@@ -28,8 +23,8 @@ import static java.awt.Font.PLAIN;
 public class StudentFrame extends javax.swing.JFrame {
     private final MarksTableDB marksTableDB = new MarksTableDB();
     private final LoginDB loginDB = new LoginDB();
-    private AvgMarkCounter avgMarkCounter;
-    private PrinterJob printerJob = PrinterJob.getPrinterJob();
+    private final AvgMarkCounter avgMarkCounter = new AvgMarkCounter();
+    private final PrinterJob printerJob = PrinterJob.getPrinterJob();
 
     public StudentFrame() {
         setResizable(false);
@@ -44,56 +39,54 @@ public class StudentFrame extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-
-        avgMarkCounter = new AvgMarkCounter();
+        jTabbedPane1 = new JTabbedPane();
+        jPanel1 = new JPanel();
+        jPanel5 = new JPanel();
+        jButton3 = new JButton();
+        jButton4 = new JButton();
+        jButton5 = new JButton();
+        jButton6 = new JButton();
+        jButton7 = new JButton();
+        jLabel5 = new JLabel();
+        jPanel9 = new JPanel();
+        jPanel10 = new JPanel();
+        jLabel12 = new JLabel();
+        jLabel14 = new JLabel();
+        jLabel16 = new JLabel();
+        jLabel17 = new JLabel();
+        jLabel18 = new JLabel();
+        jLabel20 = new JLabel();
+        jLabel43 = new JLabel();
+        jLabel44 = new JLabel();
+        jLabel45 = new JLabel();
+        jLabel46 = new JLabel();
+        jLabel47 = new JLabel();
+        jButton8 = new JButton();
+        jPanel6 = new JPanel();
+        jPanel8 = new JPanel();
+        jLabel27 = new JLabel();
+        jComboBox2 = new JComboBox<>();
+        jScrollPane2 = new JScrollPane();
+        jScrollPane1 = new JScrollPane();
+        jTable1 = new JTable();
+        jPanel11 = new JPanel();
+        jPanel12 = new JPanel();
+        jLabel28 = new JLabel();
+        jLabel29 = new JLabel();
+        jLabel30 = new JLabel();
+        jLabel31 = new JLabel();
+        jLabel32 = new JLabel();
+        jLabel33 = new JLabel();
+        jLabel34 = new JLabel();
+        jLabel35 = new JLabel();
+        jLabel36 = new JLabel();
+        jLabel37 = new JLabel();
+        jLabel38 = new JLabel();
+        jLabel39 = new JLabel();
+        jLabel40 = new JLabel();
+        jLabel41 = new JLabel();
+        jLabel42 = new JLabel();
+        jPanel2 = new JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student");
@@ -115,9 +108,7 @@ public class StudentFrame extends javax.swing.JFrame {
 
         jButton3.setText("Exit");
         jButton3.setFont(new java.awt.Font("Segoe UI", PLAIN, 26));
-        jButton3.addActionListener(e -> {
-            System.exit(0);
-        });
+        jButton3.addActionListener(e -> System.exit(0));
         jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 130, 60));
 
         jButton4.setText("jButton3");
@@ -281,21 +272,7 @@ public class StudentFrame extends javax.swing.JFrame {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(390, 402));
 
         jTable1.setFont(new java.awt.Font("Segoe UI", PLAIN, 18));
-        jTable1.setModel(new DefaultTableModel(marksTableDB.getNullData(), marksTableDB.getColumns()) {
-            final Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.Byte.class, java.lang.String.class
-            };
-            final boolean[] canEdit = new boolean [] {
-                    false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            };
-        });
+        jTable1.setModel(new DefaultTableModel(marksTableDB.getNullData(), marksTableDB.getColumns()));
         jTable1.setPreferredSize(new java.awt.Dimension(390, 420));
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.setDefaultEditor(Object.class, null);
