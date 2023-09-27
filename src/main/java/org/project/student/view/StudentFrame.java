@@ -23,7 +23,7 @@ import static java.awt.Font.PLAIN;
 public class StudentFrame extends javax.swing.JFrame {
     private final MarksTableDB marksTableDB = new MarksTableDB();
     private final LoginDB loginDB = new LoginDB();
-    private final AvgMarkCounter avgMarkCounter = new AvgMarkCounter();
+    private AvgMarkCounter avgMarkCounter;
     private final PrinterJob printerJob = PrinterJob.getPrinterJob();
 
     public StudentFrame() {
@@ -87,6 +87,8 @@ public class StudentFrame extends javax.swing.JFrame {
         jLabel41 = new JLabel();
         jLabel42 = new JLabel();
         jPanel2 = new JPanel();
+
+         avgMarkCounter = new AvgMarkCounter();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student");

@@ -324,10 +324,10 @@ public class TeacherFrame extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                JOptionPane.showMessageDialog(null, "Mark deleted!");
                 jTable1.setModel(new DefaultTableModel(teacherMarksTableDB.getTableData(nameAndSurname.split("\\s")[0],
                         nameAndSurname.split("\\s")[1], classData),
                         teacherMarksTableDB.getColumns()));
+                JOptionPane.showMessageDialog(null, "Mark deleted!");
             }
         });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 140, 60));
