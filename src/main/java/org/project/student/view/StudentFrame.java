@@ -39,54 +39,51 @@ public class StudentFrame extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        jTabbedPane1 = new JTabbedPane();
-        jPanel1 = new JPanel();
-        jPanel5 = new JPanel();
-        jButton3 = new JButton();
-        jButton4 = new JButton();
-        jButton5 = new JButton();
-        jButton6 = new JButton();
-        jButton7 = new JButton();
+        JTabbedPane jTabbedPane1 = new JTabbedPane();
+        JPanel jPanel1 = new JPanel();
+        JPanel jPanel5 = new JPanel();
+        JButton jButton3 = new JButton();
+        JButton jButton7 = new JButton();
         jLabel5 = new JLabel();
-        jPanel9 = new JPanel();
-        jPanel10 = new JPanel();
-        jLabel12 = new JLabel();
-        jLabel14 = new JLabel();
-        jLabel16 = new JLabel();
-        jLabel17 = new JLabel();
-        jLabel18 = new JLabel();
-        jLabel20 = new JLabel();
+        JPanel jPanel9 = new JPanel();
+        JPanel jPanel10 = new JPanel();
+        JLabel jLabel12 = new JLabel();
+        JLabel jLabel14 = new JLabel();
+        JLabel jLabel16 = new JLabel();
+        JLabel jLabel17 = new JLabel();
+        JLabel jLabel18 = new JLabel();
+        JLabel jLabel20 = new JLabel();
         jLabel43 = new JLabel();
         jLabel44 = new JLabel();
         jLabel45 = new JLabel();
         jLabel46 = new JLabel();
         jLabel47 = new JLabel();
         jButton8 = new JButton();
-        jPanel6 = new JPanel();
-        jPanel8 = new JPanel();
-        jLabel27 = new JLabel();
+        JPanel jPanel6 = new JPanel();
+        JPanel jPanel8 = new JPanel();
+        JLabel jLabel27 = new JLabel();
         jComboBox2 = new JComboBox<>();
-        jScrollPane2 = new JScrollPane();
-        jScrollPane1 = new JScrollPane();
+        JScrollPane jScrollPane2 = new JScrollPane();
+        JScrollPane jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
-        jPanel11 = new JPanel();
-        jPanel12 = new JPanel();
-        jLabel28 = new JLabel();
-        jLabel29 = new JLabel();
-        jLabel30 = new JLabel();
+        JPanel jPanel11 = new JPanel();
+        JPanel jPanel12 = new JPanel();
+        JLabel jLabel28 = new JLabel();
+        JLabel jLabel29 = new JLabel();
+        JLabel jLabel30 = new JLabel();
         jLabel31 = new JLabel();
-        jLabel32 = new JLabel();
-        jLabel33 = new JLabel();
-        jLabel34 = new JLabel();
-        jLabel35 = new JLabel();
-        jLabel36 = new JLabel();
+        JLabel jLabel32 = new JLabel();
+        JLabel jLabel33 = new JLabel();
+        JLabel jLabel34 = new JLabel();
+        JLabel jLabel35 = new JLabel();
+        JLabel jLabel36 = new JLabel();
         jLabel37 = new JLabel();
         jLabel38 = new JLabel();
         jLabel39 = new JLabel();
         jLabel40 = new JLabel();
         jLabel41 = new JLabel();
         jLabel42 = new JLabel();
-        jPanel2 = new JPanel();
+        JPanel jPanel2 = new JPanel();
 
          avgMarkCounter = new AvgMarkCounter();
 
@@ -111,16 +108,7 @@ public class StudentFrame extends javax.swing.JFrame {
         jButton3.setText("Exit");
         jButton3.setFont(new java.awt.Font("Segoe UI", PLAIN, 26));
         jButton3.addActionListener(e -> System.exit(0));
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 130, 60));
-
-        jButton4.setText("jButton3");
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 60));
-
-        jButton5.setText("jButton3");
-        jPanel5.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, 60));
-
-        jButton6.setText("tghth");
-        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 130, 60));
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 170, 60));
 
         jButton7.setText("Print");
         jButton7.setFont(new java.awt.Font("Segoe UI", PLAIN, 26));
@@ -139,9 +127,9 @@ public class StudentFrame extends javax.swing.JFrame {
                 }
             }
         });
-        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 130, 60));
+        jPanel5.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, 60));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 540, 830, 130));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 540, 410, 130));
 
         jLabel5.setFont(new java.awt.Font("Cascadia Mono", PLAIN, 14)); // NOI18N
         try {
@@ -451,29 +439,9 @@ public class StudentFrame extends javax.swing.JFrame {
         }
     }
 
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -486,17 +454,5 @@ public class StudentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
 }
